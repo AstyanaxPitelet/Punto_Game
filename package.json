@@ -1,0 +1,24 @@
+{
+  "name": "punto_game",
+  "version": "1.0.0",
+  "description": "Jeu du punto pour la lp dlis",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AstyanaxPitelet/Punto_Game.git"
+  },
+  "author": "Astyanax Pitelet",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AstyanaxPitelet/Punto_Game/issues"
+  },
+  "homepage": "https://github.com/AstyanaxPitelet/Punto_Game#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "express-session": "^1.17.3",
+    "mongoose": "^6.8.4"
+  }
+}
