@@ -1,19 +1,18 @@
+import { Route, Routes } from 'react-router-dom';
 import { useState } from 'react';
 import './css/style.css';
-import Square from './components/punto/Square';
-import Card from './components/punto/Card';
+import Home from './pages/Home';
+import Punto from './pages/Punto';
+
 
 function App() {
 
     return (
-      <div className="game">
-        <div className="grid">
-          <Square />
-        </div>
-        <div className="cards-player">
-          <Card />
-        </div>
-      </div>
+      <>
+        <Routes>
+          <Route path="/" element={<Punto />} />
+        </Routes>
+      </>
     );
   
 }
