@@ -15,7 +15,7 @@ export default function Register() {
     const handleUser = (e) => {
         setUser({
             ...user,
-            username: e.target.value
+            userName: e.target.value
         })
     }
 
@@ -33,9 +33,9 @@ export default function Register() {
     return (
         <div className="register">
             <form>
-               <input type="mail" placeholder="Adresse mail" name="mail" onChange={(e) => handleMail(e)} /> 
-               <input type="text" placeholder="Nom d'utilisateur" name="username" onChange={(e) => handleUser(e)} /> 
-               <input type="password" placeholder="Mot de passe" name="password" onChange={(e) => handlePassword(e)} /> 
+               <input type="mail" placeholder="Adresse mail"  onChange={(e) => handleMail(e)} /> 
+               <input type="text" placeholder="Nom d'utilisateur"  onChange={(e) => handleUser(e)} /> 
+               <input type="password" placeholder="Mot de passe"  onChange={(e) => handlePassword(e)} /> 
                <button onClick={signUp}>Crée un compte</button>
             </form>
         </div>

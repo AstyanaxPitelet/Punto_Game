@@ -3,6 +3,7 @@ import { useState } from 'react';
 import './css/style.css';
 import Home from './pages/Home';
 import Punto from './pages/Punto';
+import Login from './components/connexion/Login';
 
 
 function App() {
@@ -10,7 +11,8 @@ function App() {
     return (
       <>
         <Routes>
-          <Route path="/" element={<Punto />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
         </Routes>
       </>
     );
