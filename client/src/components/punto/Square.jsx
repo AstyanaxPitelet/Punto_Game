@@ -3,11 +3,7 @@ import { useState } from "react"
 
 export default function Square() {
 
-    const [grid, setGrid] = useState({
-            collumn: Array(6).fill(''),
-            size: Array(6).fill('')
-        }
-    )
+    const [grid, setGrid] = useState(Array(144).fill(''))
 
     const handleDragOver = (e) => {
         e.preventDefault()
@@ -23,13 +19,9 @@ export default function Square() {
 
     return (
         <div className="grid-drop">
-            {grid.collumn.map((c, idx) => (
-                <div className="board-row" key={idx}>
-                    {grid.size.map((s, index) => (
-                         <div onDragOver={(e) => handleDragOver(e)} onDrop={(e) => handleDrop(e)}  className="square" key={index}>
+            {grid.map((c, idx) => (
+                <div onDragOver={(e) => handleDragOver(e)} onDrop={(e) => handleDrop(e)}  className="square" key={idx}>
                             
-                         </div>           
-                    ))}
                 </div>
             ))}
         </div>   

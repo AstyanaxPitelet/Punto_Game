@@ -13,6 +13,12 @@
     align-items: center
 }
 
+.grid-drop {
+    display: flex;
+    flex-wrap: wrap;
+    width: 1536px;
+}
+
 .square {
     background: #fff;
     border: 1px solid #999;
@@ -28,11 +34,11 @@
     width: 128px;
 }
 
-.board-row:after {
+/* .board-row:after {
     clear: both;
     content: "";
     display: table;
-}
+} */
 
 .puntocard {
     background-color: black;

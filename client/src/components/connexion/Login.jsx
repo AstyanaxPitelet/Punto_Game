@@ -1,14 +1,18 @@
 import { useState } from "react"
+import axios from 'axios'
+
+const api = 'http://localhost:3001/connexion'
 
 export default function Login() {
 
-    const [username, setUsername] = useState("")
+    const [mail, setMail] = useState("")
     const [password, setPassword] = useState("")
+    const [error, setError] = useState("")
 
 
     const handleMail = (e) => {
-        setUsername({
-            ...username,
+        setMail({
+            ...mail,
             mail: e.target.value
         })
     }
@@ -21,7 +25,21 @@ export default function Login() {
     }
 
     const login = () => {
-        
+        axios
+            .post(`${api}/login`, {
+                mail, password
+            })
+            .then((reponse) => {
+                setError(reponse.data)
+            }).catch((err) => {
+                
+            })
+    }
+
+    const viewError = () => {
+        if(!error === "") {
+            return false
+        }
     }
 
     return (
@@ -46,6 +64,9 @@ export default function Login() {
                 <div className="login-input">
                     <input type="mail" placeholder="Adresse mail" onChange={(e) => handleMail(e)} />
                     <input type="password" placeholder="Mot de passe" onChange={(e) => handlePassword(e)} /> 
+                    <div className="error-login" hidden={viewError}>
+                        <p>{error}</p>
+                    </div>
                     <button type="submit" onClick={login}>Connexion</button>
                 </div>
             </div>

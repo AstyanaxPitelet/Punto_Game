@@ -3,39 +3,41 @@ const bcrypt = require('bcrypt')
 const User = require('../models/User')
 const catchAsync = require('../helpers/catchAsync');
 
+// Test => V
 const register = catchAsync(async (req, res) => {
-    const {mail, userName, password} = req.body
     try {
-        const hashPass = await bcrypt.hashedPassword(password, 10)
+        const {mail, userName, password} = req.body
+        const hashPass = await bcrypt.hash(password, 10)
         await User.create({
             mail: mail,
             userName: userName,
             password: hashPass
         })
-        res.redirect('/login')
     } catch(err) {
         sendError(res, err, "Un probléme est survenue lors de la création du compte")
     }
 })
 
+// Test = X
 const login = catchAsync(async (req, res) => {
-    const {mail, password} = req.body
     try {
-        if(getMail(res, mail)) {
-           const user = getMail(res, mail)
-           const match = await bcrypt.compare(password, user.hashedPassword)
-           if(match) {
-            //login 
-           } 
+        const mailClient = req.body.mail.mail
+        const userDb = await User.findOne({mail: mailClient})
+        if(userDb == null) {
+            res.send('Adresse mail ou du mot de passe invalide')
+        } 
+        const match = await bcrypt.compare(req.body.password.password, userDb.password)
+        if(match) {
+            console.log("connexion !")
         } else {
-            res.json({error: "Mail ou de mot de passe incorect"})
+            res.send('Adresse mail ou du mot de passe invalide')
         }
     } catch(err) {
-        sendError(res, err, "")
+        // sendError(res, err, "tesssss")
     }
 })
 
-const getMail = catchAsync(async (res, mail) => {
+const getUser = catchAsync(async (res, mail) => {
     try {
         return await User.find({mail: mail})
     } catch(err) {
@@ -60,5 +62,6 @@ const sendError = (async (res, err, message) => {
 })
 
 module.exports = {
-    register
+    register,
+    login
 }
