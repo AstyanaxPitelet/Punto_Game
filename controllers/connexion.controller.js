@@ -28,7 +28,10 @@ const login = catchAsync(async (req, res) => {
         } 
         const match = await bcrypt.compare(req.body.password.password, userDb.password)
         if(match) {
-            console.log("connexion !")
+            // Il renvoie un token 
+            // il garde le token
+            // dans le client si le token est bon alors envoyer sur la page de punto
+            // res.redirect(token...)
         } else {
             res.send('Adresse mail ou du mot de passe invalide')
         }
