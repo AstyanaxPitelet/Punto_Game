@@ -20,8 +20,8 @@ const userExist = catchAsync(async (mail) => {
 
 // Test => V
 const register = catchAsync(async (req, res) => {
-    const {mail, userName, password} = req.body 
     try {  
+        const {mail, userName, password} = req.body 
         const userTest = await User.find()
         if(userTest!=null) {
             userTest.forEach((user) => {
@@ -34,25 +34,27 @@ const register = catchAsync(async (req, res) => {
             })
         }  
         await bcrypt.hash(password, 10, async (err, hash) => {
-            await User.create({
-                mail: mail,
-                userName: userName,
-                password: hash
-            })
-            res.json({
-                data: 'Inscription réussi'
-            })
+            try {
+                await User.create({
+                    mail: mail,
+                    userName: userName,
+                    password: hash
+                })
+                res.json({
+                    data: 'Inscription réussi'
+                })
+            } catch(err) {
+                if(err.name === 'ValidationError') {
+                    res.json({
+                        error: catchError(err)
+                    })
+                }
+            }
         }) 
     } catch(err) {
-        if(err.name === 'ValidationError') {
-            res.json({
-                error: catchError(err)
-            })
-        } else {
-            res.json({
-                error: 'Une erreur est survenue lors de la création du compte'
-            })
-        }
+        res.json({
+            error: 'Une erreur est survenue lors de la création du compte'
+        })
     }
 })
 
