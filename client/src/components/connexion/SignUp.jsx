@@ -9,6 +9,8 @@ const api = 'http://localhost:3001/connexion'
 export default function Register() {
 
     const [user, setUser] = useState(null)
+    const [message, setMessage] = useState(null)
+    const [error, setError] = useState(null)
 
     const sendMessage = () => {
         socket.emit("send_message", {message: "Hello from react"})
@@ -41,8 +43,14 @@ export default function Register() {
         })
     }
 
-    const signUp = async () => {
-        axios.post(`${api}/register`, user)
+    const signUp = () => {
+        axios.post(`${api}/register`, user).then((reponse) => {
+            console.log(reponse.data)
+            setMessage(reponse.data)
+        }).catch((err) => {
+            console.log(err)
+            setError(err)
+        })
     }
     
     return (

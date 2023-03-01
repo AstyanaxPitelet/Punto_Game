@@ -2,19 +2,54 @@ const bcrypt = require('bcrypt')
 
 const User = require('../models/User')
 const catchAsync = require('../helpers/catchAsync');
+// const catchError = require('../helpers/catchError');
+
+const url = 'http://localhost:3000/login'
+
+const catchError = err => {
+    let errors = {}
+    Object.keys(err.errors).forEach((key) => {
+        errors[key] = err.errors[key].message 
+    })
+    return errors
+}
+
+const userExist = catchAsync(async (mail) => {
+
+}) 
 
 // Test => V
 const register = catchAsync(async (req, res) => {
-    try {
-        const {mail, userName, password} = req.body
-        const hashPass = await bcrypt.hash(password, 10)
-        await User.create({
-            mail: mail,
-            userName: userName,
-            password: hashPass
-        })
+    const {mail, userName, password} = req.body 
+    try {  
+        const userTest = await User.find()
+        if(userTest!=null) {
+            userTest.forEach((user) => {
+                if(mail===user.mail) {
+                    res.json({
+                        data: 'adrs mail deja use'
+                    })
+                    next()
+                }   
+            })
+        }  
+        await bcrypt.hash(password, 10, async (err, hash) => {
+            await User.create({
+                mail: mail,
+                userName: userName,
+                password: hash
+            })
+        }) 
     } catch(err) {
-        sendError(res, err, "Un probléme est survenue lors de la création du compte")
+        if(err.name === 'ValidationError') {
+            res.json({
+                error: catchError(err)
+            })
+        } else {
+            res.json({
+                error: 'Une erreur est survenue lors de la création du compte'
+            })
+        }
     }
 })
 
@@ -59,7 +94,7 @@ const getPasswords = catchAsync(async (res) => {
 
 const sendError = (async (res, err, message) => {
     res.json({
-        eroor: err,
+        error: catchError(err),
         message: message
     })
 })
