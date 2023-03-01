@@ -25,9 +25,9 @@ const register = catchAsync(async (req, res) => {
         const userTest = await User.find()
         if(userTest!=null) {
             userTest.forEach((user) => {
-                if(mail===user.mail) {
+                if(mail==user.mail) {
                     res.json({
-                        data: 'adrs mail deja use'
+                        data: 'Adresse mail déjà utilisé'
                     })
                     next()
                 }   
@@ -38,6 +38,9 @@ const register = catchAsync(async (req, res) => {
                 mail: mail,
                 userName: userName,
                 password: hash
+            })
+            res.json({
+                data: 'Inscription réussi'
             })
         }) 
     } catch(err) {
