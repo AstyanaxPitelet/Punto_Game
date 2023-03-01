@@ -10,7 +10,7 @@ export default function Register() {
 
     const [user, setUser] = useState(null)
     const [message, setMessage] = useState(null)
-    const [error, setError] = useState(null)
+    const [information, setInformation] = useState(null)
 
     const sendMessage = () => {
         socket.emit("send_message", {message: "Hello from react"})
@@ -43,28 +43,39 @@ export default function Register() {
         })
     }
 
-    const signUp = () => {
+    const signUp = (e) => {
+        e.preventDefault()
         axios.post(`${api}/register`, user).then((reponse) => {
-            console.log(reponse.data)
+            console.log(reponse.data.information)
             setMessage(reponse.data)
-        }).catch((err) => {
-            console.log(err)
-            setError(err)
         })
     }
     
     return (
-        <div className="register">
-            <div className="frm-login">
-               <div className="login-title">
-
-               </div>
-               <div className="login-input">
-                    <input type="mail" placeholder="Adresse mail"  onChange={(e) => handleMail(e)} /> 
-                    <input type="text" placeholder="Nom d'utilisateur"  onChange={(e) => handleUser(e)} /> 
-                    <input type="password" placeholder="Mot de passe"  onChange={(e) => handlePassword(e)} /> 
-                    <button onClick={signUp}>Créer un compte</button>
-               </div>
+        <div className="register-page">
+            <div className="register-container">
+                <div className="frm-title">
+                    <h3>Inscription</h3>
+                </div>
+                <form className="frm-contain">
+                    <div className="frm-contain-content">
+                        <div className="frm-contain-content-input">
+                            <input className={message ? 'border-red' : ''} type="email" placeholder="Adresse mail"  onChange={(e) => handleMail(e)} /> 
+                            {message ? (<p>{message.mail}</p>) : ''}
+                        </div>
+                        <div className="frm-contain-content-input">
+                            <input type="text" placeholder="Nom d'utilisateur"  onChange={(e) => handleUser(e)} /> 
+                            {message ? (<p>{message.userName}</p>) : ''}
+                        </div>
+                        <div className="frm-contain-content-input">  
+                            <input type="password" placeholder="Mot de passe"  onChange={(e) => handlePassword(e)} /> 
+                            {message ? (<p>{message.password}</p>) : ''}
+                        </div>
+                    </div>
+                    <div className="frm-contain-button">
+                        <button onClick={e => signUp(e)}>Créer un compte</button>
+                    </div>
+                </form>
             </div>
         </div>
     )

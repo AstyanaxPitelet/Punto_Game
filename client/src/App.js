@@ -1,5 +1,5 @@
 import { Route, Routes } from 'react-router-dom';
-import './css/style.css';
+import './sass/style.scss';
 import Home from './pages/Home';
 import Punto from './pages/Punto';
 import Login from './components/connexion/Login';
