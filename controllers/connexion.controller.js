@@ -14,10 +14,6 @@ const catchError = err => {
     return errors
 }
 
-const userExist = catchAsync(async (mail) => {
-
-}) 
-
 // Test => V
 const register = catchAsync(async (req, res) => {
     try {  
