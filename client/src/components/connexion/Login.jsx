@@ -30,6 +30,7 @@ export default function Login() {
                 mail, password
             })
             .then((reponse) => {
+                console.log(reponse.data)
                 setError(reponse.data)
             }).catch((err) => {
                 
@@ -64,9 +65,6 @@ export default function Login() {
                 <div className="login-input">
                     <input type="mail" placeholder="Adresse mail" onChange={(e) => handleMail(e)} />
                     <input type="password" placeholder="Mot de passe" onChange={(e) => handlePassword(e)} /> 
-                    <div className="error-login" hidden={viewError}>
-                        <p>{error}</p>
-                    </div>
                     <button type="submit" onClick={login}>Connexion</button>
                 </div>
                 
