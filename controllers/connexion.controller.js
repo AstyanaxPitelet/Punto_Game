@@ -22,7 +22,9 @@ const register = catchAsync(async (req, res) => {
         if(userTest!=null) {
             userTest.forEach((user) => {
                 if(mail==user.mail) {
-                    res.send('Adresse mail déjà utilisé')
+                    res.send({
+                        invalidInformation: 'Adresse mail déjà utilisé'
+                    })
                     next()
                 }   
             })
@@ -35,7 +37,7 @@ const register = catchAsync(async (req, res) => {
                     password: hash
                 })
                 res.send({
-                    information: 'Inscription réussi'
+                    validInformation: true
                 })
             } catch(err) {
                 if(err.name === 'ValidationError') {

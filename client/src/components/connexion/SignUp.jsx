@@ -1,8 +1,8 @@
-import { useState, useEffect } from "react"
-import io from "socket.io-client"
+import { useState } from "react"
+import { Navigate} from 'react-router-dom';
 import axios from 'axios'
 
-const socket = io.connect('http://localhost:3001')
+
 
 const api = 'http://localhost:3001/connexion'
 
@@ -10,17 +10,6 @@ export default function Register() {
 
     const [user, setUser] = useState(null)
     const [message, setMessage] = useState(null)
-    const [information, setInformation] = useState(null)
-
-    const sendMessage = () => {
-        socket.emit("send_message", {message: "Hello from react"})
-    }
-    
-    useEffect(() => {
-        socket.on('receive_message', (data) => {
-            alert(data.message)
-        })
-    }, [socket])
 
     const handleMail = (e) => {
         setUser({
@@ -46,7 +35,6 @@ export default function Register() {
     const signUp = (e) => {
         e.preventDefault()
         axios.post(`${api}/register`, user).then((reponse) => {
-            console.log(reponse.data.information)
             setMessage(reponse.data)
         })
     }
@@ -72,9 +60,16 @@ export default function Register() {
                             {message ? (<p>{message.password}</p>) : ''}
                         </div>
                     </div>
+                    {message && message.invalidInformation ? (
+                        <div className="invalidMessage">
+                            <p>{message.invalidInformation}</p>
+                        </div>
+                    ) : ''}
                     <div className="frm-contain-button">
                         <button onClick={e => signUp(e)}>Créer un compte</button>
+                        {message && message.validInformation ? (<Navigate to="/login" />) : '' }
                     </div>
+                    
                 </form>
             </div>
         </div>
