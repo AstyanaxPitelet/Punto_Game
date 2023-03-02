@@ -40,15 +40,15 @@ export default function Register() {
     }
     
     return (
-        <div className="register-page">
-            <div className="register-container">
+        <div className="frm-page">
+            <div className="frm-container">
                 <div className="frm-title">
                     <h3>Inscription</h3>
                 </div>
                 <form className="frm-contain">
                     <div className="frm-contain-content">
                         <div className="frm-contain-content-input">
-                            <input className={message ? 'border-red' : ''} type="email" placeholder="Adresse mail"  onChange={(e) => handleMail(e)} /> 
+                            <input className={message ? 'border-red' : ''} id="email" pattern=".+@globex\.com" placeholder="Adresse mail"  onChange={(e) => handleMail(e)} /> 
                             {message ? (<p>{message.mail}</p>) : ''}
                         </div>
                         <div className="frm-contain-content-input">

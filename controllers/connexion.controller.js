@@ -59,7 +59,7 @@ const login = catchAsync(async (req, res) => {
         const userDb = await User.findOne({mail: mailClient})
         if(userDb == null) {
             res.send({
-                information: 'Adresse mail ou du mot de passe invalide'
+                invalidInformation: 'Adresse mail ou du mot de passe invalide'
             })
         } 
         const match = await bcrypt.compare(req.body.password.password, userDb.password)
@@ -72,7 +72,9 @@ const login = catchAsync(async (req, res) => {
             // dans le client si le token est bon alors envoyer sur la page de punto
             // res.redirect(token...)
         } else {
-            res.send('Adresse mail ou du mot de passe invalide')
+            res.send({
+                invalidInformation: 'Adresse mail ou du mot de passe invalide'
+            })
         }
     } catch(err) {
         // sendError(res, err, "tesssss")
