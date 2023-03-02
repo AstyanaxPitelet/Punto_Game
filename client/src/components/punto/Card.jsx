@@ -29,6 +29,7 @@ export default function Card() {
                     onDragStart={(e) => dragStarted(e, card)} 
                     onDragOver={(e) => handleDragOver(e)}
                     src={card.img}
+                    className="img-card-punto"
                 />
                     
             ))}
