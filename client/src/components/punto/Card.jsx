@@ -1,4 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import axios from 'axios'
+
+
+
+const api = 'http://localhost:3001/punto'
 
 export default function Card() {
 
@@ -17,6 +22,12 @@ export default function Card() {
         e.dataTransfer.setData("nombre", card.nombre)
         e.dataTransfer.setData("color", card.color)
     }
+
+    useEffect(() => {
+        axios.post(`${api}/cartes`).then((reponse) => {
+            console.log(reponse)
+        })
+    })
 
     return (
         <div className="cards-list">
