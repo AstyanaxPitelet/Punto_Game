@@ -1,9 +1,13 @@
+/* eslint-disable no-lone-blocks */
 import { useState } from "react"
 
 
 export default function Square() {
 
-    const [grid, setGrid] = useState(Array(144).fill(''))
+    const [grid, setGrid] = useState({
+        row: Array(12).fill(''),
+        collums: Array(12).fill('')
+    })
 
     const handleDragOver = (e) => {
         e.preventDefault()
@@ -19,9 +23,13 @@ export default function Square() {
 
     return (
         <div className="grid-drop">
-            {grid.map((c, idx) => (
-                <div onDragOver={(e) => handleDragOver(e)} onDrop={(e) => handleDrop(e)}  className="square" key={idx}>
+            {grid.row.map((r, idr) => (
+                <div className="row" key="idr">
+                  {grid.collums.map((c, idc) => (
+                    <div className="col" onDragOver={(e) => handleDragOver(e)} onDrop={(e) => handleDrop(e)}  className="square" key={idc}>
                             
+                    </div>
+                  ))}  
                 </div>
             ))}
         </div>   

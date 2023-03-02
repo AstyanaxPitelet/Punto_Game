@@ -13,6 +13,47 @@
     --danger: #E52515;
 }
 
+.game {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    .cards-player {
+        margin-top: 1em;
+
+        .cards-list {
+
+            img {
+                width: 90px;
+                height: 90px;
+            }
+        }
+    }
+    
+    .grid {
+
+        width: 100%;
+        height: 90vh;
+        .grid-drop {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+        
+            .square {
+                width: 90px;
+                height: 90px;
+                border: 1px solid black;
+            }
+        }
+    }
+}
+
+
+
+
+
 
 .frm-page {
     display: flex;
