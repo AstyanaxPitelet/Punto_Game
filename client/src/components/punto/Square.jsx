@@ -26,7 +26,7 @@ export default function Square() {
             {grid.row.map((r, idr) => (
                 <div className="row" key="idr">
                   {grid.collums.map((c, idc) => (
-                    <div className="col" onDragOver={(e) => handleDragOver(e)} onDrop={(e) => handleDrop(e)}  className="square" key={idc}>
+                    <div className="col square" onDragOver={(e) => handleDragOver(e)} onDrop={(e) => handleDrop(e)}  key={idc}>
                             
                     </div>
                   ))}  
