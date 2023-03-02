@@ -65,7 +65,7 @@ const login = catchAsync(async (req, res) => {
         const match = await bcrypt.compare(req.body.password.password, userDb.password)
         if(match) {
             res.send({
-                information: 'match'
+                validInformation: true
             })
             // Il renvoie un token 
             // il garde le token
