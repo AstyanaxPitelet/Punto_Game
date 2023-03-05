@@ -17,7 +17,7 @@ export default function Grid() {
             {grid.y.map((r, idy) => (
                 <div className="collumn" key={idy}>
                   {grid.x.map((c, idx) => (
-                    <Square x={idx} y={idy} key={idx} />
+                    <Square id={[idx, idy]} x={idx} y={idy} key={idx} />
                   ))}  
                 </div>
             ))}

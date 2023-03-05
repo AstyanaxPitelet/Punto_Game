@@ -12,6 +12,7 @@ export default function Square(props) {
         const nombreCard = e.dataTransfer.getData("nombre")
         const colorCard = e.dataTransfer.getData("color")
         e.target.appendChild(idCard)
+        displayCoordinate()
     }
 
     
@@ -45,14 +46,22 @@ export default function Square(props) {
         const yb = props.y
         const coordinate = [
             [[xb-1,yb-1],[xb-1,yb],[xb-1,yb+1]],
-            [[xb,yb-1],[xb,yb],[xb,yb+1]],
+            [[xb,yb-1],props.id,[xb,yb+1]],
             [[xb+1,yb-1],[xb+1,yb],[xb+1,yb+1]]
         ]
+        
+        coordinate.forEach((element) => {
+            element.forEach(item => {
+                if(isEqual(props.id, item)) {
+                    
+                } 
+            })
+        })
         console.log(coordinate)
     }
 
     return (
-        <div className="col square" style={{visibility: baseCoordinate()}} onDragOver={(e) => handleDragOver(e)} onDrop={(e) => handleDrop(e)}>
+        <div id={props.id} className="col square" style={{visibility: baseCoordinate()}} onDragOver={(e) => handleDragOver(e)} onDrop={(e) => handleDrop(e)}>
                        
         </div>
     )
