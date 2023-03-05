@@ -1,5 +1,5 @@
 /* eslint-disable no-lone-blocks */
-import { useEffect, useState } from "react"
+import { useEffect, useState, useRef } from "react"
 import Square from "./Square"
 
 
@@ -10,14 +10,12 @@ export default function Grid() {
         x: Array(12).fill('')
     })
 
-
-
     return (
         <div className="grid-drop">
             {grid.y.map((r, idy) => (
                 <div className="collumn" key={idy}>
                   {grid.x.map((c, idx) => (
-                    <Square id={[idx, idy]} x={idx} y={idy} key={idx} />
+                    <Square  id={[idx, idy]} x={idx} y={idy} key={idx} />
                   ))}  
                 </div>
             ))}

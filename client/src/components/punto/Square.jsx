@@ -3,7 +3,7 @@ import { useEffect, useRef } from "react"
 
 export default function Square(props) {
 
-    const ref = useRef(0)
+    const ref = useRef()
 
     const handleDragOver = (e) => {
         e.preventDefault()
@@ -44,21 +44,21 @@ export default function Square(props) {
     const displayCoordinate = () => {
         const xb = props.x
         const yb = props.y
-        const test = ref.current.id
+        var test = ref.current
         const coordinate = [
-            [`${xb-1},${yb-1}`,`${xb-1},${yb}`,`${xb-1},${yb+1}`],
-            [`${xb},${yb-1}`,`${xb},${yb}`,`${xb},${yb+1}`],
-            [`${xb+1},${yb-1}`,`${xb+1},${yb}`,`${xb+1},${yb+1}`]
+            `${xb-1},${yb-1}`,`${xb-1},${yb}`,`${xb-1},${yb+1}`,
+            `${xb},${yb-1}`,`${xb},${yb}`,`${xb},${yb+1}`,
+            `${xb+1},${yb-1}`,`${xb+1},${yb}`,`${xb+1},${yb+1}`
         ]
         
         coordinate.forEach((element) => {
-            element.forEach((item) => {
-                console.log(item)
-                ref.current.classList.add('hidden')
-            })
+            if(element) {
+                document.getElementById(element).classList.add('visible')
+            document.getElementById(element).style.removeProperty('visibility')
+            }
         })
-        
-        console.log(test)
+        console.log(ref)
+        // console.log(test)
         // ref.current.style.removeProperty('visibility')
     }
 
