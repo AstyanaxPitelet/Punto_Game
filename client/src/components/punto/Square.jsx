@@ -1,13 +1,6 @@
-/* eslint-disable no-lone-blocks */
-import { useState } from "react"
 
 
-export default function Square() {
-
-    const [grid, setGrid] = useState({
-        row: Array(12).fill(''),
-        collums: Array(12).fill('')
-    })
+export default function Square(props) {
 
     const handleDragOver = (e) => {
         e.preventDefault()
@@ -17,21 +10,27 @@ export default function Square() {
         const idCard = document.getElementById(e.dataTransfer.getData("id"))
         const nombreCard = e.dataTransfer.getData("nombre")
         const colorCard = e.dataTransfer.getData("color")
-        console.log(nombreCard)
         e.target.appendChild(idCard)
+        
+        
+    }
+
+    const displayCoordinate = () => {
+        const xb = props.x 
+        const yb = props.y
+        const coordinate = [
+            [[xb-1,yb-1],[xb-1,yb],[xb-1,yb+1]],
+            [[xb,yb-1],[xb,yb],[xb,yb+1]],
+            [[xb+1,yb-1],[xb+1,yb],[xb+1,yb+1]]
+        ]
+        coordinate.forEach((element) => {
+            console.log(element)
+        })
     }
 
     return (
-        <div className="grid-drop">
-            {grid.row.map((r, idr) => (
-                <div className="row" key={idr}>
-                  {grid.collums.map((c, idc) => (
-                    <div className="col square" onDragOver={(e) => handleDragOver(e)} onDrop={(e) => handleDrop(e)}  key={idc}>
-                            
-                    </div>
-                  ))}  
-                </div>
-            ))}
-        </div>   
+        <div className="col square" onDragOver={(e) => handleDragOver(e)} onDrop={(e) => handleDrop(e)}>
+                       
+        </div>
     )
 }

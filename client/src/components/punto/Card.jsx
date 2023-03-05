@@ -1,8 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from 'axios'
 
-
-
 const api = 'http://localhost:3001/punto'
 
 export default function Card() {
