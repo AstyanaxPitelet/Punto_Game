@@ -1,7 +1,9 @@
-import { useEffect } from "react"
+import { useEffect, useRef } from "react"
 
 
 export default function Square(props) {
+
+    const ref = useRef(0)
 
     const handleDragOver = (e) => {
         e.preventDefault()
@@ -32,9 +34,7 @@ export default function Square(props) {
         return hidden
     }
 
-    useEffect(() => {
-
-    })
+    
 
     const isEqual = (a, b) => {
         return JSON.stringify(a) === JSON.stringify(b) ? true : false
@@ -44,24 +44,26 @@ export default function Square(props) {
     const displayCoordinate = () => {
         const xb = props.x
         const yb = props.y
+        const test = ref.current.id
         const coordinate = [
-            [[xb-1,yb-1],[xb-1,yb],[xb-1,yb+1]],
-            [[xb,yb-1],props.id,[xb,yb+1]],
-            [[xb+1,yb-1],[xb+1,yb],[xb+1,yb+1]]
+            [`${xb-1},${yb-1}`,`${xb-1},${yb}`,`${xb-1},${yb+1}`],
+            [`${xb},${yb-1}`,`${xb},${yb}`,`${xb},${yb+1}`],
+            [`${xb+1},${yb-1}`,`${xb+1},${yb}`,`${xb+1},${yb+1}`]
         ]
         
         coordinate.forEach((element) => {
-            element.forEach(item => {
-                if(isEqual(props.id, item)) {
-                    
-                } 
+            element.forEach((item) => {
+                console.log(item)
+                ref.current.classList.add('hidden')
             })
         })
-        console.log(coordinate)
+        
+        console.log(test)
+        // ref.current.style.removeProperty('visibility')
     }
 
     return (
-        <div id={props.id} className="col square" style={{visibility: baseCoordinate()}} onDragOver={(e) => handleDragOver(e)} onDrop={(e) => handleDrop(e)}>
+        <div ref={ref} id={props.id} className="col square" style={{visibility: baseCoordinate()}} onDragOver={(e) => handleDragOver(e)} onDrop={(e) => handleDrop(e)}>
                        
         </div>
     )
