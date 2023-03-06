@@ -34,6 +34,7 @@ export default function Card() {
                 <img 
                     key={index} 
                     id={card.id} 
+                    numero={card.nombre}
                     draggable 
                     onDragStart={(e) => dragStarted(e, card)} 
                     onDragOver={(e) => handleDragOver(e)}

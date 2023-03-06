@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 
 
 export default function Square(props) {
@@ -16,7 +16,13 @@ export default function Square(props) {
         e.target.appendChild(idCard)
         ref.current.firstChild.draggable = false
         displayCoordinate()
-        console.log(ref)
+        console.log('drop : ' + nombreCard)
+        // console.log(ref.current.firstChild.attributes.numero.nodeValue)
+        // e.dataTransfer.clearData();
+
+        // if(nombreCard > ref.current.firstChild.attributes.numero.nodeValue) {
+        //     ref.current.firstChild.classList.add('hidden')
+        // }
     }
 
     
