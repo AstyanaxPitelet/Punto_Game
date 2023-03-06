@@ -14,6 +14,7 @@ export default function Square(props) {
         const nombreCard = e.dataTransfer.getData("nombre")
         const colorCard = e.dataTransfer.getData("color")
         e.target.appendChild(idCard)
+        ref.current.firstChild.draggable = false
         displayCoordinate()
     }
 
