@@ -3,10 +3,20 @@ import { useEffect, useRef, useState } from "react"
 
 export default function Square(props) {
 
+    const [numero, setNumero] = useState(0)
+
     const ref = useRef()
 
     const handleDragOver = (e) => {
         e.preventDefault()
+        
+    }
+
+    const handleDragEnd = (e) => {
+        try {
+            e.preventDefault()
+            console.log(e.target.firstChild.attributes.numero.value)
+        } catch(err) {}
     }
 
     const handleDrop = (e) => {
@@ -16,10 +26,9 @@ export default function Square(props) {
         e.target.appendChild(idCard)
         ref.current.firstChild.draggable = false
         displayCoordinate()
+        console.log(ref.current.firstChild.attributes.numero.value)
+        console.log(e.target.firstChild.attributes.numero.value)
         console.log('drop : ' + nombreCard)
-        // console.log(ref.current.firstChild.attributes.numero.nodeValue)
-        // e.dataTransfer.clearData();
-
         // if(nombreCard > ref.current.firstChild.attributes.numero.nodeValue) {
         //     ref.current.firstChild.classList.add('hidden')
         // }
@@ -75,6 +84,7 @@ export default function Square(props) {
             style={{visibility: baseCoordinate()}} 
             onDragOver={(e) => handleDragOver(e)} 
             onDrop={(e) => handleDrop(e)}
+            onDragEnter={(e) => handleDragEnd(e)}
         >
                        
         </div>

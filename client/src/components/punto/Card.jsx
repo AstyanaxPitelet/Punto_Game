@@ -12,7 +12,7 @@ export default function Card() {
 
     const dragStarted = (e, card) => {
         e.dataTransfer.setData("id", card._id)
-        e.dataTransfer.setData("nombre", card.nombre)
+        e.dataTransfer.setData("nombre", card.numero)
         e.dataTransfer.setData("color", card.color)
     }
 
@@ -31,7 +31,7 @@ export default function Card() {
                 <img 
                     key={index} 
                     id={card._id} 
-                    numero={card.nombre}
+                    numero={card.numero}
                     draggable 
                     onDragStart={(e) => dragStarted(e, card)} 
                     onDragOver={(e) => handleDragOver(e)}
