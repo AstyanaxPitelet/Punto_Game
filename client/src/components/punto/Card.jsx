@@ -22,8 +22,10 @@ export default function Card() {
     }
 
     useEffect(() => {
-        axios.post(`${api}/cartes`).then((reponse) => {
+        axios.get(`${api}/cartes`).then((reponse) => {
             console.log(reponse)
+        }).catch(err => {
+            console.log(err)
         })
     })
 

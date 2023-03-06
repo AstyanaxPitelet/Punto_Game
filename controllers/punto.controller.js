@@ -5,7 +5,7 @@ const path = require('path');
 const cartes = catchAsync(async (req, res) => {
     try {
         const cards = await Card.find()
-        res.send({cards})
+        res.send(cards)
     } catch(err) {
 
     }
