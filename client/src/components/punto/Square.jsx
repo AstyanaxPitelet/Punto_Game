@@ -16,6 +16,7 @@ export default function Square(props) {
         e.target.appendChild(idCard)
         ref.current.firstChild.draggable = false
         displayCoordinate()
+        console.log(ref)
     }
 
     
@@ -61,7 +62,14 @@ export default function Square(props) {
     }
 
     return (
-        <div ref={ref} id={props.id} className="col square" style={{visibility: baseCoordinate()}} onDragOver={(e) => handleDragOver(e)} onDrop={(e) => handleDrop(e)}>
+        <div 
+            ref={ref} 
+            id={props.id} 
+            className="col square" 
+            style={{visibility: baseCoordinate()}} 
+            onDragOver={(e) => handleDragOver(e)} 
+            onDrop={(e) => handleDrop(e)}
+        >
                        
         </div>
     )
