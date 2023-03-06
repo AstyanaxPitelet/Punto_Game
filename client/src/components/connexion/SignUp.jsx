@@ -38,6 +38,18 @@ export default function Register() {
             setMessage(reponse.data)
         })
     }
+
+    const setClassErrorBorder = () => {
+        var border = ''
+        if(message) {
+            if(message.mail || message.userName || message.password) {
+                border = 'border-red'
+            } else {
+                border = ''
+            }
+        }   
+        return border 
+    }
     
     return (
         <div className="frm-page">
@@ -48,7 +60,7 @@ export default function Register() {
                 <form className="frm-contain">
                     <div className="frm-contain-content">
                         <div className="frm-contain-content-input">
-                            <input className={message ? 'border-red' : ''} id="email" pattern=".+@globex\.com" placeholder="Adresse mail"  onChange={(e) => handleMail(e)} /> 
+                            <input className={setClassErrorBorder()} id="email" pattern=".+@globex\.com" placeholder="Adresse mail"  onChange={(e) => handleMail(e)} /> 
                             {message ? (<p>{message.mail}</p>) : ''}
                         </div>
                         <div className="frm-contain-content-input">

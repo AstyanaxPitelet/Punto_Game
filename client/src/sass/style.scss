@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
 * {
     margin: 0;
@@ -11,11 +12,59 @@
     --primary: #0EB552;
     --border-input: #17647C; 
     --danger: #E52515;
+    --yellow: #fcb201;
+    --game-p: 'Press Start 2P', cursive;
+    --open-s: 'Open Sans', sans-serif
 }
 
 .img-card-punto {
     height: 60px;
     width: 60px;
+}
+
+.home {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 100vh;
+    background-color: #000;
+
+    .home-title {
+
+        height: 25%;
+        h1 {
+            font-family: var(--game-p);
+            font-size: 90px;
+        }
+    }
+
+    .home-button {
+        display: flex;
+        flex-direction: column;
+
+        a {
+            margin: 1rem;
+            text-decoration: none;
+            text-align: center;
+            font-family: var(--game-p);
+            font-size: 30px;
+            color: var(--yellow);
+            border: 8px solid var(--black);
+            padding: 13px;
+            border-radius: 20px;
+            background-color: #17647C;
+            transition: 0.2s ease;
+
+            &:hover {
+                cursor: pointer;
+                border: 8px solid #000;
+                background-color: var(--white);
+                color: #191B1B;
+            }
+        }
+
+    }
 }
 
 .game {
@@ -62,7 +111,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: var(--white);
+    background-color: #000;
     height: 100vh;
 
     .frm-container {
@@ -80,7 +129,7 @@
             padding: 2rem;
 
             h3 {
-                font-family: 'Open Sans', sans-serif;
+                font-family: var(--game-p);
                 font-size: 50px;
                 text-align: center;
                 color: var(--white);
@@ -124,13 +173,17 @@
                     }
                     
     
+                    .border-red {
+                        border: 2px solid var(--danger);
+                    }
+                    
                     input {
-                        padding: 8px;
+                        padding: 12px;
                         font-size: 15px; 
-                        font-family: 'Open Sans', sans-serif;
+                        font-family: var(--game-p);
                         border-radius: 20px; 
                         margin-bottom: 1rem;
-                        border-color: var(--border-input);
+                        border: 2px solid var(--border-input);
                         background-color: var(--black);
                         color: var(--white);
                         text-align: center;
@@ -147,8 +200,8 @@
                 button {
                     padding: 10px;
                     border-radius: 20px;
-                    font-family: 'Open Sans', sans-serif;
-                    border-color: var(--primary);
+                    font-family: var(--game-p);
+                    border: 2px solid var(--primary);
                     background-color: var(--black);
                     font-size: 20px;
                     transition: 0.2s ease;
