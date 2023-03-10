@@ -6,7 +6,7 @@ const api = 'http://localhost:3001/punto'
 export default function Card() {
     const [cards, setCards] = useState([])
 
-    const ref = useRef()
+    const refCard = useRef(null)
 
     const handleDragOver = (e) => {
         e.preventDefault()
@@ -31,7 +31,7 @@ export default function Card() {
                 <img 
                     key={index} 
                     id={card._id} 
-                    ref={ref}
+                    refCard={refCard}
                     numero={card.numero}
                     color={card.color}
                     draggable 

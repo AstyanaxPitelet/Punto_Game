@@ -6,48 +6,36 @@ export default function Square(props) {
     const ref = useRef()
 
     const [card, setCard] = useState(null)
-    const [saveCard, setSaveCard] = useState([])
 
 
     const handleDragOver = (e) => {
-        try {
-            e.preventDefault()
-            if(e.target.firstChild!=null) {
-                e.target.style = "transition: 0.2s ease; width: 100px;"
-            }
-        } catch(err) {
-
-        }
-    }
-
-    const handleDropCapture = (e) => {
-        try {
-            e.target.style = "width: 60px;"
-            const idCard = document.getElementById(e.dataTransfer.getData("id"))
-            if(idCard.attributes.numero.value > card.numero) {
-                saveCard.push(card)
-                ref.current.removeChild(document.getElementById(card.id))
-            } else {
-                console.log('non')
-            }
-        } catch(err) {
-
+        e.preventDefault()
+        console.log(e.timeStamp/e.timeStamp)
+        if(e.target.firstChild!=null) {
+            e.target.style = "border: 1px solid var(--border-input); background-color: black"
+            setTimeout(() => {
+                e.target.style = "border: 1px solid black; background-color: black"
+            }, 1000)
         }
     }
 
     const handleDrop = (e) => {
         const idCard = document.getElementById(e.dataTransfer.getData("id"))
+        if(e.target.firstChild!=null) {
+            if(idCard.attributes.numero.value > card.numero) {
+                ref.current.removeChild(document.getElementById(card.id))
+            } 
+        }
         setCard({
             id: idCard.attributes.id.value,
             numero: idCard.attributes.numero.value,
             color: idCard.attributes.color.value
         })
-
         e.target.appendChild(idCard)
-        console.log(saveCard)
-        
-        ref.current.firstChild.droppable = false
+        ref.current.style = "background-color: #000;"
+        ref.current.firstChild.draggable = false
         displayCoordinate()
+        e.preventDefault()
     }
 
     
@@ -92,10 +80,6 @@ export default function Square(props) {
         }
     }
 
-    // const controlCard = () => {
-
-    // }
-
     return (
         <div 
             ref={ref} 
@@ -104,7 +88,6 @@ export default function Square(props) {
             style={{visibility: baseCoordinate()}} 
             onDragOver={(e) => handleDragOver(e)} 
             onDrop={(e) => handleDrop(e)}    
-            onDropCapture={(e) => handleDropCapture(e)} 
             >
                        
         </div>
