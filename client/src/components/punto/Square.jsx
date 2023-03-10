@@ -1,37 +1,53 @@
-import { useEffect, useRef, useState } from "react"
+import { useRef, useState } from "react"
 
 
 export default function Square(props) {
 
-    const [numero, setNumero] = useState(0)
-
     const ref = useRef()
 
-    const handleDragOver = (e) => {
-        e.preventDefault()
-        
-    }
+    const [card, setCard] = useState(null)
+    const [saveCard, setSaveCard] = useState([])
 
-    const handleDragEnd = (e) => {
+
+    const handleDragOver = (e) => {
         try {
             e.preventDefault()
-            console.log(e.target.firstChild.attributes.numero.value)
-        } catch(err) {}
+            if(e.target.firstChild!=null) {
+                e.target.style = "transition: 0.2s ease; width: 100px;"
+            }
+        } catch(err) {
+
+        }
+    }
+
+    const handleDropCapture = (e) => {
+        try {
+            e.target.style = "width: 60px;"
+            const idCard = document.getElementById(e.dataTransfer.getData("id"))
+            if(idCard.attributes.numero.value > card.numero) {
+                saveCard.push(card)
+                ref.current.removeChild(document.getElementById(card.id))
+            } else {
+                console.log('non')
+            }
+        } catch(err) {
+
+        }
     }
 
     const handleDrop = (e) => {
         const idCard = document.getElementById(e.dataTransfer.getData("id"))
-        const nombreCard = e.dataTransfer.getData("nombre")
-        const colorCard = e.dataTransfer.getData("color")
+        setCard({
+            id: idCard.attributes.id.value,
+            numero: idCard.attributes.numero.value,
+            color: idCard.attributes.color.value
+        })
+
         e.target.appendChild(idCard)
-        ref.current.firstChild.draggable = false
+        console.log(saveCard)
+        
+        ref.current.firstChild.droppable = false
         displayCoordinate()
-        console.log(ref.current.firstChild.attributes.numero.value)
-        console.log(e.target.firstChild.attributes.numero.value)
-        console.log('drop : ' + nombreCard)
-        // if(nombreCard > ref.current.firstChild.attributes.numero.nodeValue) {
-        //     ref.current.firstChild.classList.add('hidden')
-        // }
     }
 
     
@@ -76,6 +92,10 @@ export default function Square(props) {
         }
     }
 
+    // const controlCard = () => {
+
+    // }
+
     return (
         <div 
             ref={ref} 
@@ -83,9 +103,9 @@ export default function Square(props) {
             className="col square" 
             style={{visibility: baseCoordinate()}} 
             onDragOver={(e) => handleDragOver(e)} 
-            onDrop={(e) => handleDrop(e)}
-            onDragEnter={(e) => handleDragEnd(e)}
-        >
+            onDrop={(e) => handleDrop(e)}    
+            onDropCapture={(e) => handleDropCapture(e)} 
+            >
                        
         </div>
     )
