@@ -9,6 +9,9 @@ export default function PuntoTestGrid() {
     const cardRef = useRef([])
     cardRef.current = []
 
+    const squareRef = useRef([])
+    squareRef.current = []
+
     const [cards, setCards] = useState([])
 
     const [test, setTest] = useState({
@@ -20,6 +23,7 @@ export default function PuntoTestGrid() {
         try {
             e.dataTransfer.setData("id", card._id)
             e.dataTransfer.setData("numero", card.numero)
+            e.dataTransfer.setData("color", card.color)
         } catch(err) {
             
         }
@@ -55,10 +59,15 @@ export default function PuntoTestGrid() {
                 `${xb},${yb-1}`,`${xb},${yb}`,`${xb},${yb+1}`,
                 `${xb+1},${yb-1}`,`${xb+1},${yb}`,`${xb+1},${yb+1}`
             ]
-            coordinate.forEach((element) => {
-                document.getElementById(element).classList.add('visible')
-                document.getElementById(element).style.removeProperty('visibility')
+            squareRef.current.forEach((ref) => {
+                coordinate.forEach((element) => {
+                    if(ref.id === element) {
+                        ref.classList.add('visible')
+                        ref.style.removeProperty('visibility')
+                    }
+                })
             })
+            
         } catch(err) {
             
         }
@@ -75,6 +84,12 @@ export default function PuntoTestGrid() {
     const addToRef = el => {
         if(el && !cardRef.current.includes(el)) {
             cardRef.current.push(el)
+        }
+    }
+
+    const addToRefSquare = el => {
+        if(el && !squareRef.current.includes(el)) {
+            squareRef.current.push(el)
         }
     }
 
@@ -106,6 +121,7 @@ export default function PuntoTestGrid() {
                         {test.x.map((r, idx) => (
                             <div 
                                 id={[idx, idy]}
+                                ref={addToRefSquare}
                                 style={{visibility: baseCoordinate(idx, idy)}} 
                                 className="test-grid-card" 
                                 key={idx} 
