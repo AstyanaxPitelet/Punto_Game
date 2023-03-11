@@ -44,7 +44,6 @@ export default function Punto() {
                     } else {
                         return
                     }
-                    
                 }
                 e.target.appendChild(card) 
             }
