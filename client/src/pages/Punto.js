@@ -19,7 +19,7 @@ export default function Punto() {
         x: Array(12).fill('')
     })
 
-    const [score, setScore] = useState({
+    const [point, setPoint] = useState({
         red: 0,
         orange: 0
     })
@@ -51,7 +51,7 @@ export default function Punto() {
                         return
                     }
                 }
-                displayScoreColor(color, numero)
+                displayPointColor(color, numero)
                 e.target.appendChild(card) 
             }
         }) 
@@ -59,13 +59,13 @@ export default function Punto() {
         displayCoordinate(x, y)
     }
 
-    const displayScoreColor = (color, number) => {
+    const displayPointColor = (color, number) => {
         switch (color) {
             case "red":
-                score.red += parseInt(number)
+                point.red += parseInt(number)
                 break;
             case "orange": 
-                score.orange += parseInt(number)
+                point.orange += parseInt(number)
                 break
             default:
                 break;
