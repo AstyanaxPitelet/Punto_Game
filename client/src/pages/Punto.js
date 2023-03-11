@@ -19,6 +19,11 @@ export default function Punto() {
         x: Array(12).fill('')
     })
 
+    const [score, setScore] = useState({
+        red: 0,
+        orange: 0
+    })
+
     const handleDragStart = (e, card) => {
         try {
             e.dataTransfer.setData("id", card._id)
@@ -35,21 +40,42 @@ export default function Punto() {
 
     const handleDrop = (e, x, y) => {
         const numero = e.dataTransfer.getData("numero")
+        const color = e.dataTransfer.getData("color")
         cardRef.current.forEach((card) => {
             if(card.id === e.dataTransfer.getData("id")) {
                 if(e.target.firstChild!=null) {
                     const child = e.target.firstChild
                     if(numero > child.attributes.numero.value) {
+                        displayScoreColor(
+                            child.attributes.color.value,  
+                            child.attributes.numero.value
+                        )
                         e.target.removeChild(child)
                     } else {
                         return
                     }
                 }
+                displayScoreColor(color, numero)
                 e.target.appendChild(card) 
+                
             }
         }) 
         e.target.style = "background-color: #000;"
         displayCoordinate(x, y)
+        console.log(score)
+    }
+
+    const displayScoreColor = (color, number) => {
+        switch (color) {
+            case "red":
+                score.red += parseInt(number)
+                break;
+            case "orange": 
+                score.orange += parseInt(number)
+                break
+            default:
+                break;
+        }
     }
 
     const displayCoordinate = (xb, yb) => {
@@ -145,6 +171,7 @@ export default function Punto() {
                                 ref={addToRef}
                                 id={card._id}
                                 numero={card.numero}
+                                color={card.color}
                                 draggable 
                                 onDragStart={(e) => handleDragStart(e, card)} 
                                 onDragOver={(e) => handleDragOver(e)}
