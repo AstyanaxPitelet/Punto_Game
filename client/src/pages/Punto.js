@@ -46,23 +46,17 @@ export default function Punto() {
                 if(e.target.firstChild!=null) {
                     const child = e.target.firstChild
                     if(numero > child.attributes.numero.value) {
-                        displayScoreColor(
-                            child.attributes.color.value,  
-                            child.attributes.numero.value
-                        )
-                        e.target.removeChild(child)
+                        child.hidden = true
                     } else {
                         return
                     }
                 }
                 displayScoreColor(color, numero)
                 e.target.appendChild(card) 
-                
             }
         }) 
         e.target.style = "background-color: #000;"
         displayCoordinate(x, y)
-        console.log(score)
     }
 
     const displayScoreColor = (color, number) => {
