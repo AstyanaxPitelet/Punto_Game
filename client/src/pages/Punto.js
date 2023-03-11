@@ -46,7 +46,11 @@ export default function Punto() {
                 if(e.target.firstChild!=null) {
                     const child = e.target.firstChild
                     if(numero > child.attributes.numero.value) {
-                        child.hidden = true
+                        displayPointColorLayer(
+                            child.attributes.color.value,
+                            child.attributes.numero.value
+                        )
+                        e.target.removeChild(child)
                     } else {
                         return
                     }
@@ -57,6 +61,20 @@ export default function Punto() {
         }) 
         e.target.style = "background-color: #000;"
         displayCoordinate(x, y)
+        console.log(point)
+    }
+
+    const displayPointColorLayer = (color, number) => {
+        switch(color) {
+            case "red": 
+                point.red = parseInt(number)
+                break;
+            case "orange": 
+                point.orange = parseInt(number)
+                break;
+            default:
+                break;
+        }
     }
 
     const displayPointColor = (color, number) => {
