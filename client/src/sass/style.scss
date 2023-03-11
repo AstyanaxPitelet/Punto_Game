@@ -26,12 +26,24 @@
     height: 60px;
     border-radius: 10px;
     transition: 0.2s ease;
-
-    &:hover {
-        width: 85px;
-        height: 85px; 
-    }
 }
+
+.test-comp {
+    padding: 6px;
+    color: #0EB552;
+    background-color: #000;
+    margin: 10px;
+    height: 20px;
+    width: 20px;
+}
+
+.card-test {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+}
+
 
 .test-grid-system {
     display: flex;
@@ -116,8 +128,8 @@
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                width: 66px;
-                height: 66px;
+                width: 64px;
+                height: 64px;
                 border: 1px solid black;
                 border-radius: 5px;
             }

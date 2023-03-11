@@ -1,4 +1,4 @@
-import { useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 
 
 export default function Square(props) {
@@ -7,6 +7,10 @@ export default function Square(props) {
 
     const [card, setCard] = useState(null)
 
+    const [point, setPoint] = useState({
+        red: 0,
+        orange: 0,
+    })
 
     const handleDragOver = (e) => {
         e.preventDefault()
@@ -21,8 +25,12 @@ export default function Square(props) {
 
     const handleDrop = (e) => {
         const idCard = document.getElementById(e.dataTransfer.getData("id"))
+        
         if(e.target.firstChild!=null) {
             if(idCard.attributes.numero.value > card.numero) {
+                const color = idCard.attributes.color.value
+                const numero = idCard.attributes.numero.value
+                setPointColor(color, numero)
                 ref.current.removeChild(document.getElementById(card.id))
             } 
         }
@@ -37,6 +45,10 @@ export default function Square(props) {
         displayCoordinate()
         e.preventDefault()
     }
+
+    useEffect(() => {
+        console.log(point)
+    })
 
     
     const baseCoordinate = () => {
@@ -59,7 +71,20 @@ export default function Square(props) {
 
     const isEqual = (a, b) => {
         return JSON.stringify(a) === JSON.stringify(b) ? true : false
-    } 
+    }
+
+    const setPointColor = (color, numero) => {
+        switch (color) {
+            case "red":
+                point.red += parseInt(numero)
+                break;
+            case "orange":
+                point.orange += parseInt(numero)
+                break;
+            default:
+                break;
+        }
+    }
     
 
     const displayCoordinate = () => {
@@ -85,7 +110,7 @@ export default function Square(props) {
             ref={ref} 
             id={props.id} 
             className="col square" 
-            style={{visibility: baseCoordinate()}} 
+            // style={{visibility: baseCoordinate()}} 
             onDragOver={(e) => handleDragOver(e)} 
             onDrop={(e) => handleDrop(e)}    
             >
