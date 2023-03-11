@@ -21,7 +21,9 @@ export default function Punto() {
 
     const [point, setPoint] = useState({
         red: 0,
-        orange: 0
+        orange: 0,
+        blue: 0,
+        yellow: 0
     })
 
     const handleDragStart = (e, card) => {
@@ -72,6 +74,12 @@ export default function Punto() {
             case "orange": 
                 point.orange = parseInt(number)
                 break;
+            case "blue": 
+                point.blue = parseInt(number)
+                break
+            case "yellow": 
+                point.yellow = parseInt(number)
+                break
             default:
                 break;
         }
@@ -84,6 +92,12 @@ export default function Punto() {
                 break;
             case "orange": 
                 point.orange += parseInt(number)
+                break
+            case "blue": 
+                point.blue += parseInt(number)
+                break
+            case "yellow": 
+                point.yellow += parseInt(number)
                 break
             default:
                 break;
