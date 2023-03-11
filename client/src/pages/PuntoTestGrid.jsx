@@ -19,6 +19,7 @@ export default function PuntoTestGrid() {
     const handleDragStart = (e, card) => {
         try {
             e.dataTransfer.setData("id", card._id)
+            e.dataTransfer.setData("numero", card.numero)
         } catch(err) {
             
         }
@@ -28,14 +29,39 @@ export default function PuntoTestGrid() {
         e.preventDefault()
     }
 
-    const handleDrop = (e) => {
-        const test = e.dataTransfer.getData("id")
+    const handleDrop = (e, x, y) => {
+        const numero = e.dataTransfer.getData("numero")
         cardRef.current.forEach((card) => {
-            if(card.id === test) {
+            if(card.id === e.dataTransfer.getData("id")) {
+                if(e.target.firstChild!=null) {
+                    const child = e.target.firstChild
+                    if(numero > child.attributes.numero.value) {
+                        e.target.removeChild(child)
+                    } else {
+                        return
+                    }
+                    
+                }
                 e.target.appendChild(card) 
             }
-        })
-        
+        }) 
+        displayCoordinate(x, y)
+    }
+
+    const displayCoordinate = (xb, yb) => {
+        try {
+            const coordinate = [
+                `${xb-1},${yb-1}`,`${xb-1},${yb}`,`${xb-1},${yb+1}`,
+                `${xb},${yb-1}`,`${xb},${yb}`,`${xb},${yb+1}`,
+                `${xb+1},${yb-1}`,`${xb+1},${yb}`,`${xb+1},${yb+1}`
+            ]
+            coordinate.forEach((element) => {
+                document.getElementById(element).classList.add('visible')
+                document.getElementById(element).style.removeProperty('visibility')
+            })
+        } catch(err) {
+            
+        }
     }
 
     useEffect(() => {
@@ -52,14 +78,41 @@ export default function PuntoTestGrid() {
         }
     }
 
+    const isEqual = (a, b) => {
+        return JSON.stringify(a) === JSON.stringify(b) ? true : false
+    }
+
+    const baseCoordinate = (x, y) => {
+        const base = [
+            [[6,5], [6,6]],
+            [[5,5],[5,6]]
+        ]
+        var hidden = 'hidden'
+        base.forEach((element) => {
+            element.forEach(baseElement => {
+                if(isEqual([x, y], baseElement)) {
+                    hidden = 'visible'
+                } 
+            })
+        })
+        return hidden
+    }
+
     return (
         <div className="plato">
             <div className="test-grid-system">
                 {test.y.map((r, idy) => (
                     <div key={idy}>
                         {test.x.map((r, idx) => (
-                            <div className="test-grid-card" key={idx} onDragOver={(e) => handleDragOver(e)} onDrop={(e) => handleDrop(e)}>
-                            
+                            <div 
+                                id={[idx, idy]}
+                                style={{visibility: baseCoordinate(idx, idy)}} 
+                                className="test-grid-card" 
+                                key={idx} 
+                                onDragOver={(e) => handleDragOver(e)} 
+                                onDrop={(e) => handleDrop(e, idx, idy)}
+                            >
+                                
                             </div>
                         ))}
                     </div>
@@ -71,6 +124,7 @@ export default function PuntoTestGrid() {
                         <img 
                             ref={addToRef}
                             id={card._id}
+                            numero={card.numero}
                             draggable 
                             onDragStart={(e) => handleDragStart(e, card)} 
                             onDragOver={(e) => handleDragOver(e)}
