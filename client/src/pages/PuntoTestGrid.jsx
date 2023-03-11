@@ -49,6 +49,7 @@ export default function PuntoTestGrid() {
                 e.target.appendChild(card) 
             }
         }) 
+        e.target.style = "background-color: #000;"
         displayCoordinate(x, y)
     }
 
@@ -114,42 +115,46 @@ export default function PuntoTestGrid() {
     }
 
     return (
-        <div className="plato">
-            <div className="test-grid-system">
-                {test.y.map((r, idy) => (
-                    <div key={idy}>
-                        {test.x.map((r, idx) => (
-                            <div 
-                                id={[idx, idy]}
-                                ref={addToRefSquare}
-                                style={{visibility: baseCoordinate(idx, idy)}} 
-                                className="test-grid-card" 
-                                key={idx} 
-                                onDragOver={(e) => handleDragOver(e)} 
-                                onDrop={(e) => handleDrop(e, idx, idy)}
-                            >
-                                
-                            </div>
-                        ))}
-                    </div>
-                ))}
+        <div className="game">
+            <div className="grid">
+                <div className="grid-drop">
+                    {test.y.map((r, idy) => (
+                        <div className="collumn" key={idy}>
+                            {test.x.map((r, idx) => (
+                                <div 
+                                    id={[idx, idy]}
+                                    ref={addToRefSquare}
+                                    style={{visibility: baseCoordinate(idx, idy)}} 
+                                    className="square" 
+                                    key={idx} 
+                                    onDragOver={(e) => handleDragOver(e)} 
+                                    onDrop={(e) => handleDrop(e, idx, idy)}
+                                >
+                                    
+                                </div>
+                            ))}
+                        </div>
+                    ))}
+                </div>
             </div>
-            <div className="card-test" draggable onDragStart={(e) => {handleDragStart(e)}}>
-                {cards.map((card) => {
-                    return (
-                        <img 
-                            ref={addToRef}
-                            id={card._id}
-                            numero={card.numero}
-                            draggable 
-                            onDragStart={(e) => handleDragStart(e, card)} 
-                            onDragOver={(e) => handleDragOver(e)}
-                            src={card.img}
-                            className="img-card-punto" 
-                            alt="" 
-                        />
-                    )
-                })}
+            <div className="cards-player">
+                <div className="cards-list" draggable onDragStart={(e) => {handleDragStart(e)}}>
+                    {cards.map((card) => {
+                        return (
+                            <img 
+                                ref={addToRef}
+                                id={card._id}
+                                numero={card.numero}
+                                draggable 
+                                onDragStart={(e) => handleDragStart(e, card)} 
+                                onDragOver={(e) => handleDragOver(e)}
+                                src={card.img}
+                                className="img-card-punto" 
+                                alt="" 
+                            />
+                        )
+                    })}
+                </div>
             </div>
         </div>
     )
