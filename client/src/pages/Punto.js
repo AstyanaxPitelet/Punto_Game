@@ -62,6 +62,7 @@ export default function Punto() {
             }
         }) 
         e.target.style = "background-color: #000;"
+        e.target.firstChild.draggable = false
         displayCoordinate(x, y)
         console.log(point)
     }
@@ -77,8 +78,8 @@ export default function Punto() {
             case "blue": 
                 point.blue = parseInt(number)
                 break
-            case "yellow": 
-                point.yellow = parseInt(number)
+            case "green": 
+                point.green = parseInt(number)
                 break
             default:
                 break;
@@ -96,8 +97,8 @@ export default function Punto() {
             case "blue": 
                 point.blue += parseInt(number)
                 break
-            case "yellow": 
-                point.yellow += parseInt(number)
+            case "green": 
+                point.green += parseInt(number)
                 break
             default:
                 break;

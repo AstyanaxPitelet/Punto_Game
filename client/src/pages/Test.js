@@ -8,7 +8,9 @@ export default function Test() {
 
     const [players, setPlayers] = useState([
         { id: 1, username: "joueur 1", cards: [] },
-        { id: 2, username: "joueur 2", cards: [] }
+        { id: 2, username: "joueur 2", cards: [] },
+        { id: 2, username: "joueur 3", cards: [] },
+        { id: 2, username: "joueur 4", cards: [] },
     ])  
 
     const [cards, setCards] = useState([])
