@@ -23,6 +23,15 @@ const cartes = catchAsync(async (req, res) => {
     }
 })
 
+
+
+/**
+ * Description placeholder
+ * @date 3/17/2023 - 10:19:44 AM
+ * @author Astyanax Pitelet
+ *
+ * @type {*}
+ */
 const cardByColor = catchAsync(async (req, res) => {
     try {
         const cards = await Card.find({

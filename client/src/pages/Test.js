@@ -7,10 +7,8 @@ const api = 'http://localhost:3001/punto'
 export default function Test() {
 
     const [players, setPlayers] = useState([
-        { id: 1, username: "joueur 1", cards: [] },
-        { id: 2, username: "joueur 2", cards: [] },
-        { id: 2, username: "joueur 3", cards: [] },
-        { id: 2, username: "joueur 4", cards: [] },
+        { id: 1, username: "joueur 1", colors: ['orange', 'red'], cards: [] },
+        { id: 2, username: "joueur 2", colors: ['blue', 'green'], cards: [] },
     ])  
 
     const [cards, setCards] = useState([])
@@ -21,16 +19,29 @@ export default function Test() {
         axios.post(`${api}/rule/player`, {
             nbPlayer: players.length
         }).then((reponse) => {
-            reponse.data.colors.forEach((color, index) => {
-                axios.post(`${api}/card/color`, {
-                    color: color
-                }).then((card) => {
-                    setCards(card.data)
-                    players[index].cards = card.data
+            setRule(reponse.data)
+            players.forEach((player) => {
+                player.colors.forEach((color) => {
+                    axios.post(`${api}/card/color`, {
+                        color: color
+                    }).then((card) => {
+                        setCards(card.data)
+                        player.cards = card.data
+                        
+                    })
                 })
-            });
+            })
+            // reponse.data.colors.forEach((color, index) => {
+            //     axios.post(`${api}/card/color`, {
+            //         color: color
+            //     }).then((card) => {
+            //         setCards(card.data)
+            //         players[index].cards = card.data
+            //     })
+            // });
             
         })
+        console.log(players)
     }, [players])
 
     return (
