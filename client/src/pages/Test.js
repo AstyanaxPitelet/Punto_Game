@@ -21,27 +21,14 @@ export default function Test() {
         }).then((reponse) => {
             setRule(reponse.data)
             players.forEach((player) => {
-                player.colors.forEach((color) => {
-                    axios.post(`${api}/card/color`, {
-                        color: color
-                    }).then((card) => {
-                        setCards(card.data)
-                        player.cards = card.data
-                        
-                    })
+                axios.post(`${api}/card/color`, {
+                    color: player.colors
+                }).then((card) => {
+                    setCards(card.data)
+                    player.cards = card.data 
                 })
             })
-            // reponse.data.colors.forEach((color, index) => {
-            //     axios.post(`${api}/card/color`, {
-            //         color: color
-            //     }).then((card) => {
-            //         setCards(card.data)
-            //         players[index].cards = card.data
-            //     })
-            // });
-            
         })
-        console.log(players)
     }, [players])
 
     return (
