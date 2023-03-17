@@ -7,8 +7,8 @@ const api = 'http://localhost:3001/punto'
 export default function Test() {
 
     const [players, setPlayers] = useState([
-        { id: 1, username: "joueur 1", colors: ['orange', 'red'], cards: [] },
-        { id: 2, username: "joueur 2", colors: ['blue', 'green'], cards: [] },
+        { id: 1, username: "joueur 1", cards: [] },
+        { id: 2, username: "joueur 2", cards: [] },
     ])  
 
     const [cards, setCards] = useState([])
@@ -20,12 +20,13 @@ export default function Test() {
             nbPlayer: players.length
         }).then((reponse) => {
             setRule(reponse.data)
-            players.forEach((player) => {
+            reponse.data.colors.forEach((color, index) => {
                 axios.post(`${api}/card/color`, {
-                    color: player.colors
+                    color: color
                 }).then((card) => {
-                    setCards(card.data)
-                    player.cards = card.data 
+                    setCards(cards => [...cards ,card.data]) 
+                    players[index].cards = card.data
+                    
                 })
             })
         })
