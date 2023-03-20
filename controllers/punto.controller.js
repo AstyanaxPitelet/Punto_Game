@@ -3,7 +3,6 @@ const Rule = require('../models/Rule')
 const catchAsync = require('../helpers/catchAsync');
 
 
-
 /**
  * Description placeholder
  * 
@@ -60,6 +59,26 @@ const findByNbPlayer = catchAsync(async (req, res) => {
             nbPlayer: req.body.nbPlayer
         })
         res.send(rule)
+        // if(rule.contrainte.isN) {
+        //     // Traitement pour 3 joueur
+        // } else {
+        //     rule.colors.forEach( async (color) => {
+        //         const a = await Card.find({
+        //             color: {$in: color}
+        //         })
+                
+        //     })
+
+        //     // const cards1 = await Card.find({
+        //     //     color: {$in: ['red', 'orange']}
+        //     // })
+
+        //     // const cards2 = await Card.find({
+        //     //     color: {$in: ['blue', 'green']}
+        //     // })
+            
+        //     // res.send([cards1, cards2])
+        // }
     } catch(err) {
         res.json({
             error: "Une erreur est survenue lors du chargement de la partie"
