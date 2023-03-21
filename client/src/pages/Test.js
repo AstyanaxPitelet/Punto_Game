@@ -19,13 +19,15 @@ export default function Test() {
 
     useEffect(() => {
         let isDone = true 
-        axios.post(`${api}/rule/player`, {
-            nbPlayer: players.length
-        }).then((response) => {
-            if(isDone) {
-                setRule(response.data)
-            }
-        })
+        if(players.length > 1) {
+            axios.post(`${api}/rule/player`, {
+                nbPlayer: players.length
+            }).then((response) => {
+                if(isDone) {
+                    setRule(response.data)
+                }
+            })
+        }
         return () => {
             isDone = false
         }

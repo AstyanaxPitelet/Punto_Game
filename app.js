@@ -8,34 +8,26 @@ const connexionRoutes = require('./routes/connexion.routes');
 const puntoRoutes = require('./routes/punto.routes');
 
 const app = express();
+app.use(cors())
+app.use(express.json())
+
+
+// Server socket io
 const server = http.createServer(app)
 
 const io = new Server(server, {
     cors: {
-        origin: "http://localhost:3000",
+        origin: "http://localhost:3001",
         methods: ['GET', 'POST']
     }
 })
 
 io.on('connection', (socket) => {
     console.log(`User connected: ${socket.id}`)
-    socket.on('send_message', (data) => {
-        socket.broadcast.emit('receive_message', data)
-    })
 })
 
-app.use(cors())
-app.use(express.json())
-
-
-
-
-
+// db access
 mongoose.connect('mongodb://127.0.0.1/puntogame');
-
-
-
-
 
 app.use('/punto', puntoRoutes);
 

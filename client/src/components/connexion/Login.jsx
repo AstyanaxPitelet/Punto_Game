@@ -1,6 +1,7 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Navigate } from "react-router-dom"
 import axios from 'axios'
+import { useSignIn } from "react-auth-kit"
 
 const api = 'http://localhost:3001/connexion'
 
@@ -9,6 +10,7 @@ export default function Login() {
     const [mail, setMail] = useState("")
     const [password, setPassword] = useState("")
     const [message, setMessage] = useState("")
+    const signIn = useSignIn()
 
 
     const handleMail = (e) => {
@@ -30,12 +32,22 @@ export default function Login() {
         axios.post(`${api}/login`, {
             mail, password
         }).then((reponse) => {
-            console.log(reponse.data)
             setMessage(reponse.data)
+            if(reponse.data.validInformation) {
+                const client = reponse.data.validInformation.user 
+                const token = reponse.data.validInformation.token
+                signIn({
+                    token: token,
+                    expiresIn: 3600,
+                    tokenType: "Bearer",
+                    authState: { email: client.mail }
+                })
+            }       
         }).catch((err) => {
             
         })
     }
+    
 
 
     return (

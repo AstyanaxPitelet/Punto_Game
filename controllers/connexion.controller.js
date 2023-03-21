@@ -2,9 +2,8 @@ const bcrypt = require('bcrypt')
 
 const User = require('../models/User')
 const catchAsync = require('../helpers/catchAsync');
-// const catchError = require('../helpers/catchError');
 
-const url = 'http://localhost:3000/login'
+const jwt = require('jsonwebtoken')
 
 const catchError = err => {
     let errors = {}
@@ -64,13 +63,15 @@ const login = catchAsync(async (req, res) => {
         } 
         const match = await bcrypt.compare(req.body.password.password, userDb.password)
         if(match) {
+            const id = userDb.id
             res.send({
-                validInformation: true
+                validInformation: {
+                    user: userDb,
+                    token: jwt.sign({id}, "jwtSecret", {
+                        expiresIn: 3600
+                    })
+                },
             })
-            // Il renvoie un token 
-            // il garde le token
-            // dans le client si le token est bon alors envoyer sur la page de punto
-            // res.redirect(token...)
         } else {
             res.send({
                 invalidInformation: 'Adresse mail ou du mot de passe invalide'
