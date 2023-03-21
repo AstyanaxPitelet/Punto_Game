@@ -11,6 +11,8 @@ export default function Test() {
     const [players, setPlayers] = useState([
         { numero: 1, username: "joueur 1", cards: [] },
         { numero: 2, username: "joueur 2", cards: [] },
+        { numero: 3, username: "joueur 2", cards: [] },
+        { numero: 4, username: "joueur 2", cards: [] },
     ]) 
 
     const [neutral, setNeutral] = useState([])

@@ -23,6 +23,15 @@ const cartes = catchAsync(async (req, res) => {
 })
 
 
+/**
+ * 
+ * Permet d'avoir une liste de carte par identifiant donnée
+ * 
+ * @date 3/21/2023 - 11:48:05 AM
+ * @author Astyanax Pitelet
+ *
+ * @type {*}
+ */
 const getCardById = catchAsync(async(req, res) => {
     try {
         const card = await Card.find({
@@ -30,25 +39,6 @@ const getCardById = catchAsync(async(req, res) => {
         })
         res.send(card)
     } catch(err) {}
-})
-
-
-/**
- * Description placeholder
- * @date 3/17/2023 - 10:19:44 AM
- * @author Astyanax Pitelet
- *
- * @type {*}
- */
-const cardByColor = catchAsync(async (req, res) => {
-    try {
-        const cards = await Card.find({
-            color: { $in: req.body.color},
-        })
-        res.send(cards)
-    } catch(err) {
-
-    }
 })
 
 /**
