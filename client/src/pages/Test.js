@@ -6,8 +6,6 @@ const api = 'http://localhost:3001/punto'
 
 export default function Test() {
 
-    const [cards, setCards] = useState([])
-
     const [players, setPlayers] = useState([
         { numero: 1, username: "joueur 1", cards: [] },
         { numero: 2, username: "joueur 2", cards: [] },

@@ -68,6 +68,5 @@ const findByNbPlayer = catchAsync(async (req, res) => {
 module.exports = {
     cartes,
     findByNbPlayer,
-    cardByColor,
     getCardById
 };
