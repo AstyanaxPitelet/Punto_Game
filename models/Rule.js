@@ -2,12 +2,10 @@ const mongoose = require('mongoose')
 
 const ruleSchema = new mongoose.Schema({
     nbPlayer: { type: Number },
-    nbCard: { type: Number },
-    contrainte: {
-       isN: { type: Boolean },
-       color: { type: Array }  
-    },
-    colors: { type: Array }
+    deck: [[ {
+        type: mongoose.Types.ObjectId,
+        ref: "card"
+    } ]]
 })
 
 module.exports = mongoose.model('rule', ruleSchema)

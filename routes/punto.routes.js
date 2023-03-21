@@ -5,6 +5,6 @@ const punto = require('../controllers/punto.controller.js');
 
 router.get('/cartes', punto.cartes)
 router.post('/rule/player', punto.findByNbPlayer)
-router.post('/card/color', punto.cardByColor)
+router.post('/card/id', punto.getCardById)
 
 module.exports = router

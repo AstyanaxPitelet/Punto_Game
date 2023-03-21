@@ -9,8 +9,8 @@ export default function Test() {
     const [cards, setCards] = useState([])
 
     const [players, setPlayers] = useState([
-        { id: 0, username: "joueur 1", cards: [] },
-        { id: 1, username: "joueur 2", cards: [] },
+        { numero: 1, username: "joueur 1", cards: [] },
+        { numero: 2, username: "joueur 2", cards: [] },
     ]) 
 
     const [neutral, setNeutral] = useState([])
@@ -32,28 +32,32 @@ export default function Test() {
     }, [])
 
     useEffect(() => {
-       if(rule) {
-        rule.colors.forEach((color, index) => {
-            axios.post(`${api}/card/color`, {
-                color: color 
-            }).then((response) => {
-                setCards(cards => [...cards , response.data]) 
-                setPlayers((prev) => {
-                    return prev.map((player) => {
-                        if(player.id===index) {
-                            return {
-                                ...player,
-                                cards: response.data
-                            }
-                        } else {
-                            return player
-                        }
-                    })
+        let isDone = true
+        if(rule) {
+            rule.deck.forEach((deck, index) => {
+                axios.post(`${api}/card/id`, {
+                    idCard: deck
+                }).then((card) => {
+                    if(isDone) {
+                        setPlayers((prev) => {
+                            return prev.map((player) => {
+                                if(player.numero===index+1) {
+                                    return {
+                                        ...player,
+                                        cards: card.data
+                                    }
+                                } else {
+                                    return player
+                                }
+                            })
+                        })
+                    }
                 })
-                
-            })
-        });
-       }
+            });
+        }
+        return () => {
+            isDone = false
+        }
     }, [rule])
 
     return (
