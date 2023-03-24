@@ -3,7 +3,7 @@ import io from 'socket.io-client'
 
 const socket = io.connect('http://localhost:3001')
 
-export default function Lobbys() {
+export default function Room() {
 
     const joinRoom = useRef()
 
@@ -20,7 +20,7 @@ export default function Lobbys() {
     }
 
     return (
-        <div className='lobby'>
+        <div className='room'>
           <div ref={createRoom} className="create-room">
             <div className="room-saisie">
               <input placeholder='Exemple : 1234' type="text" />

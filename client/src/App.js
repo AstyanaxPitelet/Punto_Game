@@ -6,7 +6,7 @@ import Login from './components/connexion/Login';
 import Register from './components/connexion/SignUp';
 import Test from './pages/Test';
 import { RequireAuth } from 'react-auth-kit';
-import Lobbys from './pages/Lobbys';
+import Room from './pages/Room';
 
 function App() {
 
@@ -16,7 +16,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/lobbys" element={<Lobbys />} />
+          <Route path="/room" element={<Room />} />
           <Route path="/punto" element={
             <RequireAuth loginPath='/login'>
               <Punto />
