@@ -17,13 +17,31 @@ const server = http.createServer(app)
 
 const io = new Server(server, {
     cors: {
-        origin: "http://localhost:3001",
+        origin: "http://localhost:3000",
         methods: ['GET', 'POST']
     }
 })
 
 io.on('connection', (socket) => {
     console.log(`User connected: ${socket.id}`)
+
+    // socket.on("join_room", (roomCode) => {
+    //     console.log(`A user joined the room ${roomCode}`);
+    //     socket.join(roomCode);
+    // });
+
+    socket.on('private message', (data) => {
+        socket.broadcast.emit('private message', data.message)
+    })
+
+    // socket.on("play", ({ id, roomCode }) => {
+    //     console.log(`play at ${id} to ${roomCode}`);
+    //     socket.broadcast.to(roomCode).emit("updateGame", id);
+    // });
+    
+    // socket.on("disconnect", () => {
+    //     console.log("User Disconnected");
+    // });
 })
 
 // db access
