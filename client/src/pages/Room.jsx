@@ -9,6 +9,12 @@ export default function Room() {
 
     const createRoom = useRef()
 
+    const createRoomValue = useRef()
+
+    const joinRoomValue = useRef()
+
+    const [room, setRoom] = useState(null)
+
     const handleJoin = () => {
       createRoom.current.style = "display: none"
       joinRoom.current.style.removeProperty("display")
@@ -19,12 +25,29 @@ export default function Room() {
       createRoom.current.style.removeProperty("display")
     }
 
+    const handleClickCreate = () => {
+      const room = createRoomValue.current.value
+      if(room) {
+        console.log(room)
+      }
+    }
+
+    const handleChangeCreate = (e) => {
+      const roomSize = e.target.value.split('').length
+      if(roomSize>4 || roomSize<4) {
+        e.target.nextSibling.disabled = true
+      } else {
+        e.target.nextSibling.disabled = false
+        setRoom(e.target.value)
+      }
+    }
+
     return (
         <div className='room'>
           <div ref={createRoom} className="create-room">
             <div className="room-saisie">
-              <input placeholder='Exemple : 1234' type="text" />
-              <button>Create room</button>
+              <input ref={createRoomValue} onChange={e => handleChangeCreate(e)} placeholder='Exemple : 1234' type="text" />
+              <button onClick={handleClickCreate}>Create room</button>
             </div>
             <div className="room-button">
               <button onClick={handleJoin} >Join room</button>
