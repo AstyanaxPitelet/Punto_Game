@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react"
-import { Navigate } from "react-router-dom"
+import { useState } from "react"
+import { useNavigate } from "react-router-dom"
 import axios from 'axios'
-import { useSignIn } from "react-auth-kit"
+import { useIsAuthenticated, useSignIn } from "react-auth-kit"
+
 
 const api = 'http://localhost:3001/connexion'
 
@@ -12,7 +13,9 @@ export default function Login() {
     const [message, setMessage] = useState("")
     const signIn = useSignIn()
 
+    const isAuth = useIsAuthenticated()
 
+    const navigate = useNavigate()
     const handleMail = (e) => {
         setMail({
             ...mail,
@@ -40,8 +43,13 @@ export default function Login() {
                     token: token,
                     expiresIn: 3600,
                     tokenType: "Bearer",
-                    authState: { email: client.mail }
+                    authState: { 
+                        email: client.mail
+                    }
                 })
+                if(isAuth) {
+                    navigate('/room')
+                }
             }       
         }).catch((err) => {
             
@@ -72,7 +80,6 @@ export default function Login() {
                     ) : ''}
                     <div className="frm-contain-button">
                         <button onClick={e => login(e)}>Connexion</button>
-                        {message && message.validInformation ? (<Navigate to="/punto" />) : '' }
                     </div>
                     
                 </form>

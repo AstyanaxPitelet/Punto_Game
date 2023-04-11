@@ -1,4 +1,6 @@
-import { useRef, useState, useEffect } from "react"
+import { useRef, useState, useEffect, useContext } from "react"
+import { SocketContext } from '../socket'
+import { useParams } from "react-router-dom"
 
 import axios from 'axios'
 
@@ -6,15 +8,21 @@ const api = 'http://localhost:3001/punto'
 
 export default function Punto() {
     
+    const socket = useContext(SocketContext) 
+
+    const params = useParams()
+
     const cardRef = useRef([])
     cardRef.current = []
 
     const squareRef = useRef([])
     squareRef.current = []
 
-    const [cards, setCards] = useState([])
+    const [players, setPlayers] = useState([])
 
-    const [test, setTest] = useState({
+    // const [currentPlayer, setCurrentPlayer] = useState(null)
+
+    const [grid, setGrid] = useState({
         y: Array(12).fill(''),
         x: Array(12).fill('')
     })
@@ -23,8 +31,40 @@ export default function Punto() {
         red: 0,
         orange: 0,
         blue: 0,
-        yellow: 0
+        green: 0
     })
+
+    useEffect(() => {
+        socket.on('update-info', (info) => {
+            let parentInfo = null
+            cardRef.current.forEach((card) => {
+                if(card.id === info.card.id) {
+                    squareRef.current.forEach((parent) => {
+                        if(parent.id === `${info.coordinate.x},${info.coordinate.y}`) {
+                            parentInfo = parent
+                            if(parent.firstChild!=null) {
+                                const child = parent.firstChild
+                                if(info.card.numero > child.attributes.numero.value) {
+                                    displayPointColorLayer(
+                                        child.attributes.color.value,
+                                        child.attributes.numero.value
+                                    )
+                                    parent.removeChild(child)
+                                } else {
+                                    return
+                                }
+                            }
+                            displayPointColor(info.card.color, info.card.numero)
+                            parent.appendChild(card) 
+                        }
+                    })
+                }        
+            }) 
+            parentInfo.style = "background-color: #000;"
+            parentInfo.firstChild.draggable = false
+            displayCoordinate(info.coordinate.x, info.coordinate.y)
+        })
+    }, [])
 
     const handleDragStart = (e, card) => {
         try {
@@ -43,6 +83,7 @@ export default function Punto() {
     const handleDrop = (e, x, y) => {
         const numero = e.dataTransfer.getData("numero")
         const color = e.dataTransfer.getData("color")
+        let cardInfo = null
         cardRef.current.forEach((card) => {
             if(card.id === e.dataTransfer.getData("id")) {
                 if(e.target.firstChild!=null) {
@@ -59,14 +100,28 @@ export default function Punto() {
                 }
                 displayPointColor(color, numero)
                 e.target.appendChild(card) 
+                cardInfo = card
             }
         }) 
         e.target.style = "background-color: #000;"
         e.target.firstChild.draggable = false
         displayCoordinate(x, y)
+        socket.emit('update-game', {
+            coordinate: {
+                x: x,
+                y: y
+            },
+            card: {
+                id: cardInfo.id,
+                numero: numero,
+                color: color
+            },
+            room: params.idroom,
+        })
         console.log(point)
     }
 
+    
     const displayPointColorLayer = (color, number) => {
         switch(color) {
             case "red": 
@@ -127,10 +182,8 @@ export default function Punto() {
     }
 
     useEffect(() => {
-        axios.get(`${api}/cartes`).then((reponse) => {
-            setCards(reponse.data)
-        }).catch(err => {
-            console.log(err)
+        socket.on('start-game-players-info', (value) => {
+            setPlayers(value)
         })
     }, [])
 
@@ -166,13 +219,21 @@ export default function Punto() {
         return hidden
     }
 
+    // useEffect(() => {
+    //     players.forEach((player) => {
+    //         if(player.id === socket.id) {
+    //             setCurrentPlayer(player)
+    //         }
+    //     })
+    // }, [players])
+
     return (
         <div className="game">
             <div className="grid">
                 <div className="grid-drop">
-                    {test.y.map((r, idy) => (
+                    {grid.y.map((r, idy) => (
                         <div className="collumn" key={idy}>
-                            {test.x.map((r, idx) => (
+                            {grid.x.map((r, idx) => (
                                 <div 
                                     id={[idx, idy]}
                                     ref={addToRefSquare}
@@ -189,27 +250,32 @@ export default function Punto() {
                     ))}
                 </div>
             </div>
-            <div className="cards-player">
-                <div className="cards-list" draggable onDragStart={(e) => {handleDragStart(e)}}>
-                    {cards.map((card, index) => {
-                        return (
-                            <img 
-                                key={index}
-                                ref={addToRef}
-                                id={card._id}
-                                numero={card.numero}
-                                color={card.color}
-                                draggable 
-                                onDragStart={(e) => handleDragStart(e, card)} 
-                                onDragOver={(e) => handleDragOver(e)}
-                                src={card.img}
-                                className="img-card-punto" 
-                                alt="" 
-                            />
-                        )
-                    })}
-                </div>
+            <div>
+                {players.map((player, idx) => (
+                    <div key={idx} style={{display: "inline-block", marginLeft: "2rem"}}>
+                        <p>joueur : {player.numero}</p>
+                                <div onDragStart={(e) => {handleDragStart(e)}}>
+                                    {player.cards.map((card, index) => (
+                                        <img 
+                                            key={index}
+                                            ref={addToRef}
+                                            id={card._id}
+                                            numero={card.numero}
+                                            color={card.color}
+                                            draggable={true} 
+                                            onDragStart={(e) => handleDragStart(e, card)} 
+                                            onDragOver={(e) => handleDragOver(e)}
+                                            src={card.img}
+                                            className="img-card-punto" 
+                                            style={{position: "absolute", zIndex: index}}
+                                            alt="" 
+                                        />
+                                    ))}
+                                </div>
+                    </div>
+                ))}
             </div>
+           
         </div>
     )
 }

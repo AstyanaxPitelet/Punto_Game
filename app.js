@@ -22,26 +22,66 @@ const io = new Server(server, {
     }
 })
 
+const shuffle = (array) => {
+    let currentIndex = array.length,  randomIndex;
+    while (currentIndex != 0) {
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+      [array[currentIndex], array[randomIndex]] = [
+        array[randomIndex], array[currentIndex]];
+    }
+    return array;
+  }
+
 io.on('connection', (socket) => {
     console.log(`User connected: ${socket.id}`)
 
-    // socket.on("join_room", (roomCode) => {
-    //     console.log(`A user joined the room ${roomCode}`);
-    //     socket.join(roomCode);
-    // });
-
-    socket.on('private message', (data) => {
-        socket.broadcast.emit('private message', data.message)
+    socket.on('create-room', (infos) => {
+        console.log(`A user : ${infos.id} create the room ${infos.room}`);
+        socket.join(infos.room)
+        io.to(infos.room).emit('lobby-info', infos)
     })
 
-    // socket.on("play", ({ id, roomCode }) => {
-    //     console.log(`play at ${id} to ${roomCode}`);
-    //     socket.broadcast.to(roomCode).emit("updateGame", id);
-    // });
-    
-    // socket.on("disconnect", () => {
-    //     console.log("User Disconnected");
-    // });
+    socket.on('join-room', (infos) => {
+        console.log(`A user : ${infos.id} create the room ${infos.room}`);
+        socket.join(infos.room)
+        io.to(infos.room).emit('lobby-info', infos)
+    })
+
+    socket.on('test-e', (value) => {
+        io.to(value.room).emit('test', value)
+    })
+
+    socket.on('give-card', (infos) => {
+        io.to(infos.room).emit('give-card-info', {
+            cards: shuffle(infos.cards),
+            id: infos.id,
+            numero: infos.numero
+        })
+    })
+
+    socket.on('start-game', (infos) => {
+        io.to(infos.room).emit('start-info', infos.compteur)
+    })
+
+    socket.on('start-game-players', (infos) => {
+        console.log(infos.players)
+        io.to(infos.room).emit('start-game-players-info', infos.players)
+    })
+
+    // socket.on('update-player', (player) => {
+    //     socket.to(player.room).emit('update-player-info', player)
+    // })
+
+   
+    socket.on('update-game', (info) => {
+        console.log("update game")
+        socket.to(info.room).emit('update-info', info)
+    })
+
+    socket.on("disconnect", () => {
+        console.log("User Disconnected");
+    });
 })
 
 // db access

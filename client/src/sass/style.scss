@@ -20,6 +20,36 @@
 .img-card-punto {
     height: 46px;
     width: 46px;
+   
+}
+
+
+
+.border-red-lobby {
+    border: 8px solid var(--danger);
+}
+
+.lobby-wait {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 100%;
+
+    .lobby-wait-content {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        width: 25%;
+
+        .lobby-infos {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            width: 100%;
+        }
+    }
 }
 
 .room {
@@ -45,8 +75,7 @@
             flex-direction: column;
             padding: 2rem;
             background-color: #0EB552;
-            border-top-right-radius: 20px;
-            border-bottom-right-radius: 20px;
+            border-radius: 20px;
 
             input {
                 padding: 12px;

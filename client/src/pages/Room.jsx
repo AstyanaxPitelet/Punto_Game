@@ -1,34 +1,64 @@
-import { useEffect, useRef, useState } from 'react'
-import io from 'socket.io-client'
+import { useContext, useEffect, useRef, useState } from 'react'
+import { Navigate } from 'react-router-dom'
+import { SocketContext } from '../socket'
+import axios from "axios"
+import { useAuthUser } from "react-auth-kit"
 
-const socket = io.connect('http://localhost:3001')
+const api = 'http://localhost:3001/punto'
 
 export default function Room() {
 
-    const joinRoom = useRef()
+    const socket = useContext(SocketContext) 
 
     const createRoom = useRef()
 
-    const createRoomValue = useRef()
-
-    const joinRoomValue = useRef()
-
     const [room, setRoom] = useState(null)
 
-    const handleJoin = () => {
-      createRoom.current.style = "display: none"
-      joinRoom.current.style.removeProperty("display")
-    }
+    const [redirect, setRedirect] = useState(false)
 
-    const handleCreate = () => {
-      joinRoom.current.style = "display: none"
-      createRoom.current.style.removeProperty("display")
-    }
+    const [nbPlayerChoice, setNbPlayerChoice] = useState([2, 3, 4])
+
+    const [nbPlayer, setNbPlayer] = useState(2)
+
+    const auth = useAuthUser()
 
     const handleClickCreate = () => {
-      const room = createRoomValue.current.value
       if(room) {
-        console.log(room)
+        axios.post(`${api}/player/name`, {
+          mail: auth().email
+        }).then((response) => {
+          socket.emit('create-room', {
+            id: socket.id,
+            room: room,
+            user: response.data,
+            cards: [],
+            numero: 0,
+            hote: true,
+            turn: true
+          })
+        })
+        
+        setRedirect(true)
+      }
+    }
+
+    const handleClickJoin = () => {
+      if(room) {
+        axios.post(`${api}/player/name`, {
+          mail: auth().email
+        }).then((response) => {
+          socket.emit('join-room', {
+            id: socket.id,
+            room: room,
+            user: response.data,
+            cards: [],
+            numero: 0,
+            hote: false,
+            turn: false
+          })
+        })
+        
+        setRedirect(true)
       }
     }
 
@@ -46,20 +76,15 @@ export default function Room() {
         <div className='room'>
           <div ref={createRoom} className="create-room">
             <div className="room-saisie">
-              <input ref={createRoomValue} onChange={e => handleChangeCreate(e)} placeholder='Exemple : 1234' type="text" />
+              <input onChange={e => handleChangeCreate(e)} placeholder='Exemple : 1234' type="text" />
+              <select onChange={e => setNbPlayer(e.target.value)} value={nbPlayer}>
+                {nbPlayerChoice.map((nb, index) => (
+                  <option key={index}>{nb}</option>
+                ))}
+              </select>
               <button onClick={handleClickCreate}>Create room</button>
-            </div>
-            <div className="room-button">
-              <button onClick={handleJoin} >Join room</button>
-            </div>
-          </div>
-          <div ref={joinRoom} className="create-room" style={{display: 'none'}}>
-            <div className="room-saisie">
-              <input placeholder='Exemple : 1234' type="text" />
-              <button>Join room</button>
-            </div>
-            <div className="room-button">
-              <button onClick={handleCreate}>Create room</button>
+              <button onClick={handleClickJoin}>Join room</button>
+              {redirect ? (<Navigate to={`/room/${room}/${nbPlayer}`} />) : ''}
             </div>
           </div>
         </div>

@@ -4,7 +4,11 @@ const punto = require('../controllers/punto.controller.js');
 
 
 router.get('/cartes', punto.cartes)
-router.post('/rule/player', punto.findByNbPlayer)
 router.post('/card/id', punto.getCardById)
+
+router.post('/player/name', punto.findUserByMail)
+router.post('/rule/player', punto.findByNbPlayer)
+
+
 
 module.exports = router

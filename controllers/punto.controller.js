@@ -1,5 +1,6 @@
 const Card = require('../models/Card')
 const Rule = require('../models/Rule')
+const User = require('../models/User')
 const catchAsync = require('../helpers/catchAsync');
 
 
@@ -35,7 +36,7 @@ const cartes = catchAsync(async (req, res) => {
 const getCardById = catchAsync(async(req, res) => {
     try {
         const card = await Card.find({
-            _id: { $in: req.body.idCard}
+            _id: req.body.idCard
         })
         res.send(card)
     } catch(err) {}
@@ -54,7 +55,7 @@ const getCardById = catchAsync(async(req, res) => {
  */
 const findByNbPlayer = catchAsync(async (req, res) => {
     try {
-        const rule = await Rule.findOne({
+        const rule = await Rule.find({
             nbPlayer: req.body.nbPlayer
         })
         res.send(rule)
@@ -65,8 +66,32 @@ const findByNbPlayer = catchAsync(async (req, res) => {
     }
 })
 
+
+
+/**
+ * Description placeholder
+ * 
+ * Permet de récupérer un utilisateur par son adresse mail
+ * 
+ * @date 4/7/2023 - 3:32:33 PM
+ * @author Astyanax Pitelet
+ *
+ * @type {*}
+ */
+const findUserByMail = catchAsync(async (req, res) => {
+    try {
+        const user = await User.findOne({
+            mail: req.body.mail
+        })
+        res.send(user.userName)
+    } catch(err) {
+
+    }
+})
+
 module.exports = {
     cartes,
     findByNbPlayer,
-    getCardById
+    getCardById,
+    findUserByMail
 };
