@@ -1,5 +1,5 @@
 import { useContext, useEffect, useRef, useState } from 'react'
-import { Navigate } from 'react-router-dom'
+import { Navigate, useNavigate } from 'react-router-dom'
 import { SocketContext } from '../socket'
 import axios from "axios"
 import { useAuthUser } from "react-auth-kit"
@@ -11,6 +11,8 @@ export default function Room() {
     const socket = useContext(SocketContext) 
 
     const createRoom = useRef()
+
+    const navigate = useNavigate()
 
     const [room, setRoom] = useState(null)
 
@@ -37,8 +39,7 @@ export default function Room() {
             turn: true
           })
         })
-        
-        setRedirect(true)
+        navigate(`/room/${room}/${nbPlayer}`)
       }
     }
 
@@ -57,8 +58,7 @@ export default function Room() {
             turn: false
           })
         })
-        
-        setRedirect(true)
+        navigate(`/room/${room}/${nbPlayer}`)
       }
     }
 
@@ -72,6 +72,8 @@ export default function Room() {
       }
     }
 
+    
+
     return (
         <div className='room'>
           <div ref={createRoom} className="create-room">
@@ -84,7 +86,6 @@ export default function Room() {
               </select>
               <button onClick={handleClickCreate}>Create room</button>
               <button onClick={handleClickJoin}>Join room</button>
-              {redirect ? (<Navigate to={`/room/${room}/${nbPlayer}`} />) : ''}
             </div>
           </div>
         </div>

@@ -1,0 +1,505 @@
+[{
+  "_id": {
+    "$oid": "6406396b49cff5aa55fc45ac"
+  },
+  "numero": 1,
+  "color": "red",
+  "img": "/img/card/r1.png"
+},{
+  "_id": {
+    "$oid": "64063bd949cff5aa55fc45ad"
+  },
+  "numero": 2,
+  "color": "red",
+  "img": "/img/card/r2.png"
+},{
+  "_id": {
+    "$oid": "64063c3849cff5aa55fc45ae"
+  },
+  "numero": 3,
+  "color": "red",
+  "img": "/img/card/r3.png"
+},{
+  "_id": {
+    "$oid": "64063c5049cff5aa55fc45af"
+  },
+  "numero": 4,
+  "color": "red",
+  "img": "/img/card/r4.png"
+},{
+  "_id": {
+    "$oid": "64063c6749cff5aa55fc45b0"
+  },
+  "numero": 5,
+  "color": "red",
+  "img": "/img/card/r5.png"
+},{
+  "_id": {
+    "$oid": "64063c7049cff5aa55fc45b1"
+  },
+  "numero": 6,
+  "color": "red",
+  "img": "/img/card/r6.png"
+},{
+  "_id": {
+    "$oid": "64063ca349cff5aa55fc45b2"
+  },
+  "numero": 7,
+  "color": "red",
+  "img": "/img/card/r7.png"
+},{
+  "_id": {
+    "$oid": "64063caf49cff5aa55fc45b3"
+  },
+  "numero": 8,
+  "color": "red",
+  "img": "/img/card/r8.png"
+},{
+  "_id": {
+    "$oid": "64063cc149cff5aa55fc45b4"
+  },
+  "numero": 9,
+  "color": "red",
+  "img": "/img/card/r9.png"
+},{
+  "_id": {
+    "$oid": "64063d6349cff5aa55fc45b5"
+  },
+  "numero": 1,
+  "color": "orange",
+  "img": "/img/card/o1.png"
+},{
+  "_id": {
+    "$oid": "64063d8049cff5aa55fc45b6"
+  },
+  "numero": 2,
+  "color": "orange",
+  "img": "/img/card/o2.png"
+},{
+  "_id": {
+    "$oid": "64063d9849cff5aa55fc45b7"
+  },
+  "numero": 3,
+  "color": "orange",
+  "img": "/img/card/o3.png"
+},{
+  "_id": {
+    "$oid": "64063da649cff5aa55fc45b8"
+  },
+  "numero": 4,
+  "color": "orange",
+  "img": "/img/card/o4.png"
+},{
+  "_id": {
+    "$oid": "64063dd849cff5aa55fc45b9"
+  },
+  "numero": 5,
+  "color": "orange",
+  "img": "/img/card/o5.png"
+},{
+  "_id": {
+    "$oid": "64063de449cff5aa55fc45ba"
+  },
+  "numero": 6,
+  "color": "orange",
+  "img": "/img/card/o6.png"
+},{
+  "_id": {
+    "$oid": "64063def49cff5aa55fc45bb"
+  },
+  "numero": 7,
+  "color": "orange",
+  "img": "/img/card/o7.png"
+},{
+  "_id": {
+    "$oid": "64063dfd49cff5aa55fc45bc"
+  },
+  "numero": 8,
+  "color": "orange",
+  "img": "/img/card/o8.png"
+},{
+  "_id": {
+    "$oid": "64063e0b49cff5aa55fc45bd"
+  },
+  "numero": 9,
+  "color": "orange",
+  "img": "/img/card/o9.png"
+},{
+  "_id": {
+    "$oid": "64136a4d8e82b97cdae0e00f"
+  },
+  "numero": 1,
+  "color": "blue",
+  "img": "/img/card/b1.png"
+},{
+  "_id": {
+    "$oid": "64136a9c8e82b97cdae0e010"
+  },
+  "numero": 2,
+  "color": "blue",
+  "img": "/img/card/b2.png"
+},{
+  "_id": {
+    "$oid": "64136aab8e82b97cdae0e011"
+  },
+  "numero": 3,
+  "color": "blue",
+  "img": "/img/card/b3.png"
+},{
+  "_id": {
+    "$oid": "64136ab88e82b97cdae0e012"
+  },
+  "numero": 4,
+  "color": "blue",
+  "img": "/img/card/b4.png"
+},{
+  "_id": {
+    "$oid": "64136ac08e82b97cdae0e013"
+  },
+  "numero": 5,
+  "color": "blue",
+  "img": "/img/card/b5.png"
+},{
+  "_id": {
+    "$oid": "64136acb8e82b97cdae0e014"
+  },
+  "numero": 6,
+  "color": "blue",
+  "img": "/img/card/b6.png"
+},{
+  "_id": {
+    "$oid": "64136ad58e82b97cdae0e015"
+  },
+  "numero": 7,
+  "color": "blue",
+  "img": "/img/card/b7.png"
+},{
+  "_id": {
+    "$oid": "64136adf8e82b97cdae0e016"
+  },
+  "numero": 8,
+  "color": "blue",
+  "img": "/img/card/b8.png"
+},{
+  "_id": {
+    "$oid": "64136ae78e82b97cdae0e017"
+  },
+  "numero": 9,
+  "color": "blue",
+  "img": "/img/card/b9.png"
+},{
+  "_id": {
+    "$oid": "64136be18e82b97cdae0e01b"
+  },
+  "numero": 1,
+  "color": "green",
+  "img": "/img/card/v1.png"
+},{
+  "_id": {
+    "$oid": "64136c108e82b97cdae0e01c"
+  },
+  "numero": 2,
+  "color": "green",
+  "img": "/img/card/v2.png"
+},{
+  "_id": {
+    "$oid": "64136c1d8e82b97cdae0e01d"
+  },
+  "numero": 3,
+  "color": "green",
+  "img": "/img/card/v3.png"
+},{
+  "_id": {
+    "$oid": "64136c488e82b97cdae0e01e"
+  },
+  "numero": 4,
+  "color": "green",
+  "img": "/img/card/v4.png"
+},{
+  "_id": {
+    "$oid": "64136c548e82b97cdae0e01f"
+  },
+  "numero": 5,
+  "color": "green",
+  "img": "/img/card/v5.png"
+},{
+  "_id": {
+    "$oid": "64136c5f8e82b97cdae0e020"
+  },
+  "numero": 6,
+  "color": "green",
+  "img": "/img/card/v6.png"
+},{
+  "_id": {
+    "$oid": "64136c6b8e82b97cdae0e021"
+  },
+  "numero": 7,
+  "color": "green",
+  "img": "/img/card/v7.png"
+},{
+  "_id": {
+    "$oid": "64136c748e82b97cdae0e022"
+  },
+  "numero": 8,
+  "color": "green",
+  "img": "/img/card/v8.png"
+},{
+  "_id": {
+    "$oid": "64136c7e8e82b97cdae0e023"
+  },
+  "numero": 9,
+  "color": "green",
+  "img": "/img/card/v9.png"
+},{
+  "_id": {
+    "$oid": "641395248e82b97cdae0e024"
+  },
+  "numero": 1,
+  "color": "red",
+  "img": "/img/card/r1.png"
+},{
+  "_id": {
+    "$oid": "641395558e82b97cdae0e025"
+  },
+  "numero": 2,
+  "color": "red",
+  "img": "/img/card/r2.png"
+},{
+  "_id": {
+    "$oid": "6413956d8e82b97cdae0e026"
+  },
+  "numero": 3,
+  "color": "red",
+  "img": "/img/card/r3.png"
+},{
+  "_id": {
+    "$oid": "641395778e82b97cdae0e027"
+  },
+  "numero": 4,
+  "color": "red",
+  "img": "/img/card/r4.png"
+},{
+  "_id": {
+    "$oid": "641395808e82b97cdae0e028"
+  },
+  "numero": 5,
+  "color": "red",
+  "img": "/img/card/r5.png"
+},{
+  "_id": {
+    "$oid": "6413958c8e82b97cdae0e029"
+  },
+  "numero": 6,
+  "color": "red",
+  "img": "/img/card/r6.png"
+},{
+  "_id": {
+    "$oid": "641395a48e82b97cdae0e02a"
+  },
+  "numero": 7,
+  "color": "red",
+  "img": "/img/card/r7.png"
+},{
+  "_id": {
+    "$oid": "641395ad8e82b97cdae0e02b"
+  },
+  "numero": 8,
+  "color": "red",
+  "img": "/img/card/r8.png"
+},{
+  "_id": {
+    "$oid": "641395b78e82b97cdae0e02c"
+  },
+  "numero": 9,
+  "color": "red",
+  "img": "/img/card/r9.png"
+},{
+  "_id": {
+    "$oid": "64142a618e82b97cdae0e02f"
+  },
+  "numero": 1,
+  "color": "orange",
+  "img": "/img/card/o1.png"
+},{
+  "_id": {
+    "$oid": "64142aa38e82b97cdae0e030"
+  },
+  "numero": 2,
+  "color": "orange",
+  "img": "/img/card/o2.png"
+},{
+  "_id": {
+    "$oid": "64142aac8e82b97cdae0e031"
+  },
+  "numero": 3,
+  "color": "orange",
+  "img": "/img/card/o3.png"
+},{
+  "_id": {
+    "$oid": "64142ab58e82b97cdae0e032"
+  },
+  "numero": 4,
+  "color": "orange",
+  "img": "/img/card/o4.png"
+},{
+  "_id": {
+    "$oid": "64142abf8e82b97cdae0e033"
+  },
+  "numero": 5,
+  "color": "orange",
+  "img": "/img/card/o5.png"
+},{
+  "_id": {
+    "$oid": "64142aca8e82b97cdae0e034"
+  },
+  "numero": 6,
+  "color": "orange",
+  "img": "/img/card/o6.png"
+},{
+  "_id": {
+    "$oid": "64142ad38e82b97cdae0e035"
+  },
+  "numero": 7,
+  "color": "orange",
+  "img": "/img/card/o7.png"
+},{
+  "_id": {
+    "$oid": "64142aef8e82b97cdae0e036"
+  },
+  "numero": 8,
+  "color": "orange",
+  "img": "/img/card/o8.png"
+},{
+  "_id": {
+    "$oid": "64142af98e82b97cdae0e037"
+  },
+  "numero": 9,
+  "color": "orange",
+  "img": "/img/card/o9.png"
+},{
+  "_id": {
+    "$oid": "64142b038e82b97cdae0e038"
+  },
+  "numero": 1,
+  "color": "blue",
+  "img": "/img/card/b1.png"
+},{
+  "_id": {
+    "$oid": "64142b108e82b97cdae0e039"
+  },
+  "numero": 2,
+  "color": "blue",
+  "img": "/img/card/b2.png"
+},{
+  "_id": {
+    "$oid": "64142b198e82b97cdae0e03a"
+  },
+  "numero": 3,
+  "color": "blue",
+  "img": "/img/card/b3.png"
+},{
+  "_id": {
+    "$oid": "64142b228e82b97cdae0e03b"
+  },
+  "numero": 4,
+  "color": "blue",
+  "img": "/img/card/b4.png"
+},{
+  "_id": {
+    "$oid": "64142b2d8e82b97cdae0e03c"
+  },
+  "numero": 5,
+  "color": "blue",
+  "img": "/img/card/b5.png"
+},{
+  "_id": {
+    "$oid": "64142b388e82b97cdae0e03d"
+  },
+  "numero": 6,
+  "color": "blue",
+  "img": "/img/card/b6.png"
+},{
+  "_id": {
+    "$oid": "64142b418e82b97cdae0e03e"
+  },
+  "numero": 7,
+  "color": "blue",
+  "img": "/img/card/b7.png"
+},{
+  "_id": {
+    "$oid": "64142b4b8e82b97cdae0e03f"
+  },
+  "numero": 8,
+  "color": "blue",
+  "img": "/img/card/b8.png"
+},{
+  "_id": {
+    "$oid": "64142b548e82b97cdae0e040"
+  },
+  "numero": 9,
+  "color": "blue",
+  "img": "/img/card/b9.png"
+},{
+  "_id": {
+    "$oid": "64142b658e82b97cdae0e041"
+  },
+  "numero": 1,
+  "color": "green",
+  "img": "/img/card/v1.png"
+},{
+  "_id": {
+    "$oid": "64142b758e82b97cdae0e042"
+  },
+  "numero": 2,
+  "color": "green",
+  "img": "/img/card/v2.png"
+},{
+  "_id": {
+    "$oid": "64142b818e82b97cdae0e043"
+  },
+  "numero": 3,
+  "color": "green",
+  "img": "/img/card/v3.png"
+},{
+  "_id": {
+    "$oid": "64142b8a8e82b97cdae0e044"
+  },
+  "numero": 4,
+  "color": "green",
+  "img": "/img/card/v4.png"
+},{
+  "_id": {
+    "$oid": "64142b938e82b97cdae0e045"
+  },
+  "numero": 5,
+  "color": "green",
+  "img": "/img/card/v5.png"
+},{
+  "_id": {
+    "$oid": "64142b9c8e82b97cdae0e046"
+  },
+  "numero": 6,
+  "color": "green",
+  "img": "/img/card/v6.png"
+},{
+  "_id": {
+    "$oid": "64142ba58e82b97cdae0e047"
+  },
+  "numero": 7,
+  "color": "green",
+  "img": "/img/card/v7.png"
+},{
+  "_id": {
+    "$oid": "64142bae8e82b97cdae0e048"
+  },
+  "numero": 8,
+  "color": "green",
+  "img": "/img/card/v8.png"
+},{
+  "_id": {
+    "$oid": "64142bb78e82b97cdae0e049"
+  },
+  "numero": 9,
+  "color": "green",
+  "img": "/img/card/v9.png"
+}]

@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect, useContext } from "react"
 import { SocketContext } from '../socket'
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 
 import axios from 'axios'
 
@@ -8,6 +8,8 @@ const api = 'http://localhost:3001/punto'
 
 export default function Punto() {
     
+    const navigate = useNavigate()
+
     const socket = useContext(SocketContext) 
 
     const params = useParams()
@@ -15,12 +17,15 @@ export default function Punto() {
     const cardRef = useRef([])
     cardRef.current = []
 
+    const test = useRef([])
+    test.current = []
+
     const squareRef = useRef([])
     squareRef.current = []
 
     const [players, setPlayers] = useState([])
 
-    // const [currentPlayer, setCurrentPlayer] = useState(null)
+    const [currentPlayer, setCurrentPlayer] = useState(null)
 
     const [grid, setGrid] = useState({
         y: Array(12).fill(''),
@@ -37,7 +42,7 @@ export default function Punto() {
     useEffect(() => {
         socket.on('update-info', (info) => {
             let parentInfo = null
-            cardRef.current.forEach((card) => {
+            test.current.forEach((card) => {
                 if(card.id === info.card.id) {
                     squareRef.current.forEach((parent) => {
                         if(parent.id === `${info.coordinate.x},${info.coordinate.y}`) {
@@ -58,10 +63,11 @@ export default function Punto() {
                             parent.appendChild(card) 
                         }
                     })
-                }        
+                } 
             }) 
             parentInfo.style = "background-color: #000;"
             parentInfo.firstChild.draggable = false
+            parentInfo.firstChild.style = "height: 46px; width: 46px;"
             displayCoordinate(info.coordinate.x, info.coordinate.y)
         })
     }, [])
@@ -83,42 +89,43 @@ export default function Punto() {
     const handleDrop = (e, x, y) => {
         const numero = e.dataTransfer.getData("numero")
         const color = e.dataTransfer.getData("color")
-        let cardInfo = null
+        let cardInfo = null;
         cardRef.current.forEach((card) => {
-            if(card.id === e.dataTransfer.getData("id")) {
-                if(e.target.firstChild!=null) {
-                    const child = e.target.firstChild
-                    if(numero > child.attributes.numero.value) {
-                        displayPointColorLayer(
-                            child.attributes.color.value,
-                            child.attributes.numero.value
-                        )
-                        e.target.removeChild(child)
-                    } else {
-                        return
-                    }
-                }
-                displayPointColor(color, numero)
-                e.target.appendChild(card) 
-                cardInfo = card
+          if (card.id === e.dataTransfer.getData("id")) {
+            if (e.target.firstChild != null) {
+              const child = e.target.firstChild;
+              if (numero > child.attributes.numero.value) {
+                displayPointColorLayer(
+                  child.attributes.color.value,
+                  child.attributes.numero.value
+                );
+                e.target.removeChild(child);
+              } else {
+                return;
+              }
             }
-        }) 
-        e.target.style = "background-color: #000;"
-        e.target.firstChild.draggable = false
-        displayCoordinate(x, y)
-        socket.emit('update-game', {
-            coordinate: {
-                x: x,
-                y: y
-            },
-            card: {
-                id: cardInfo.id,
-                numero: numero,
-                color: color
-            },
-            room: params.idroom,
-        })
-        console.log(point)
+            displayPointColor(color, numero);
+            e.target.appendChild(card);
+            cardInfo = card;
+          }
+        });
+        e.target.style = "background-color: #000;";
+        e.target.firstChild.draggable = false;
+        cardInfo.style = "height: 46px; width: 46px;"
+        displayCoordinate(x, y);
+        socket.emit("update-game", {
+          coordinate: {
+            x: x,
+            y: y,
+          },
+          card: {
+            id: cardInfo.id,
+            numero: numero,
+            color: color,
+          },
+          room: params.idroom,
+        });
+        console.log(point);               
     }
 
     
@@ -187,6 +194,12 @@ export default function Punto() {
         })
     }, [])
 
+    const addToTest = el => {
+        if(el && !test.current.includes(el)) {
+            test.current.push(el)
+        }
+    }
+
     const addToRef = el => {
         if(el && !cardRef.current.includes(el)) {
             cardRef.current.push(el)
@@ -219,16 +232,64 @@ export default function Punto() {
         return hidden
     }
 
-    // useEffect(() => {
-    //     players.forEach((player) => {
-    //         if(player.id === socket.id) {
-    //             setCurrentPlayer(player)
-    //         }
-    //     })
-    // }, [players])
+    useEffect(() => {
+        players.forEach((player) => {
+            if(player.id === socket.id) {
+                setCurrentPlayer(player)
+            }
+        })
+    }, [players])
+
+    const setTurn = () => {
+        switch(parseInt(params.nbplayer)) {
+            case 2:
+                break 
+            case 3:
+                break 
+            case 4:
+                break 
+            default: 
+                break 
+        }
+    }
 
     return (
         <div className="game">
+            <div className="current-player">
+                <h1>Votre jeu</h1>
+                {currentPlayer && (
+                    <>
+                        {players.map((player, idx) => (
+                            <div className="current-player-container" key={idx}>
+                                {player.id === socket.id && (
+                                    <div className="player-info-in-game">
+                                        <h6>Asty</h6>
+                                        <p>joueur numéro {player.numero}</p>
+                                        <div className="deck" onDragStart={(e) => {handleDragStart(e)}}>
+                                            {player.cards.map((card, index) => (
+                                                <img 
+                                                    key={index}
+                                                    ref={addToRef}
+                                                    id={card._id}
+                                                    numero={card.numero}
+                                                    color={card.color}
+                                                    draggable={true} 
+                                                    onDragStart={(e) => handleDragStart(e, card)} 
+                                                    onDragOver={(e) => handleDragOver(e)}
+                                                    src={card.img}
+                                                    className="img-card-punto" 
+                                                    style={{position: "absolute", zIndex: index}}
+                                                    alt="" 
+                                                />
+                                            ))}
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
+                        ))}    
+                    </>
+                )}
+            </div>
             <div className="grid">
                 <div className="grid-drop">
                     {grid.y.map((r, idy) => (
@@ -250,28 +311,26 @@ export default function Punto() {
                     ))}
                 </div>
             </div>
-            <div>
-                {players.map((player, idx) => (
-                    <div key={idx} style={{display: "inline-block", marginLeft: "2rem"}}>
-                        <p>joueur : {player.numero}</p>
-                                <div onDragStart={(e) => {handleDragStart(e)}}>
-                                    {player.cards.map((card, index) => (
-                                        <img 
-                                            key={index}
-                                            ref={addToRef}
-                                            id={card._id}
-                                            numero={card.numero}
-                                            color={card.color}
-                                            draggable={true} 
-                                            onDragStart={(e) => handleDragStart(e, card)} 
-                                            onDragOver={(e) => handleDragOver(e)}
-                                            src={card.img}
-                                            className="img-card-punto" 
-                                            style={{position: "absolute", zIndex: index}}
-                                            alt="" 
-                                        />
-                                    ))}
-                                </div>
+            
+            
+            <div hidden>
+                {players.map((player, index) => (
+                    <div key={index} onDragStart={(e) => {handleDragStart(e)}}>
+                        {player.cards.map((card, index) => (
+                           <img 
+                                key={index}
+                                ref={addToTest}
+                                id={card._id}
+                                numero={card.numero}
+                                color={card.color}
+                                draggable={true} 
+                                onDragStart={(e) => handleDragStart(e, card)} 
+                                onDragOver={(e) => handleDragOver(e)}
+                                src={card.img}
+                                className="img-card-punto" 
+                                alt="" 
+                            />                 
+                        ))}
                     </div>
                 ))}
             </div>

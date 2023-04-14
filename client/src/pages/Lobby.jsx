@@ -119,7 +119,17 @@ export default function Lobby() {
         }
     }, [rule])
 
-
+    
+    /**
+     * Description placeholder
+     * 
+     * Permet de lancer le timer puis lance la partie
+     * 
+     * @date 4/12/2023 - 10:36:52 AM
+     * @author Astyanax Pitelet
+     *
+     * @param {*} e
+     */
     const handleClickStart = (e) => {        
         if(players.length===parseInt(params.nbplayer)) {
             startButton.current.disabled = true
@@ -159,12 +169,24 @@ export default function Lobby() {
 
     return (
         <div className="lobby-wait">
+            <div className="title-lobby">
+                <h1>Salle d'attente</h1>
+            </div>
+            <div className="timer">
+            {timer && (
+                    <>
+                        <h6>Lancement de la partie dans</h6>
+                        <p>{timer}</p>
+                    </>
+                )}
+            </div>
             <div className="lobby-wait-content">
                 <div className="lobby-infos">
-                    <h4>Room code : { params.idroom }</h4>
-                    <h4>{players.length}/{params.nbplayer}</h4>
+                    <p>Room code : { params.idroom }</p>
+                    <p>Nombre de joueur : {players.length}/{params.nbplayer}</p>
                 </div>
                 <div className="lobby-content">
+                    <h4>Liste des joueurs</h4>
                     {players.map((player, idx) => (
                         <p key={idx}>{player.user}</p>
                     ))}
@@ -176,12 +198,11 @@ export default function Lobby() {
                         </button>
                     )}
                 </div>
-                {timer && (
-                    <p>{timer}</p>
-                )}
-                {message && (
-                    <p>{message}</p>
-                )}
+                <div className="message-error">
+                    {message && (
+                        <p className="message-info">{message}</p>
+                    )}
+                </div>
             </div>
         </div>
     )

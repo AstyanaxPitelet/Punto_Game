@@ -5,6 +5,18 @@ const catchAsync = require('../helpers/catchAsync');
 
 const jwt = require('jsonwebtoken')
 
+
+/**
+ * Description placeholder
+ * 
+ * Permet d'avoir les erreurs de validations
+ * 
+ * @date 4/12/2023 - 10:34:47 AM
+ * @author Astyanax Pitelet
+ *
+ * @param {*} err
+ * @returns {{}}
+ */
 const catchError = err => {
     let errors = {}
     Object.keys(err.errors).forEach((key) => {
@@ -13,7 +25,17 @@ const catchError = err => {
     return errors
 }
 
-// Test => V
+
+/**
+ * Description placeholder
+ * 
+ * Permet de faire une insciption au site
+ * 
+ * @date 4/12/2023 - 10:33:37 AM
+ * @author Astyanax Pitelet
+ *
+ * @type {*}
+ */
 const register = catchAsync(async (req, res) => {
     try {  
         const {mail, userName, password} = req.body 
@@ -51,7 +73,17 @@ const register = catchAsync(async (req, res) => {
     }
 })
 
-// Test = X
+
+/**
+ * Description placeholder
+ * 
+ * Permet de ce connecter au site
+ * 
+ * @date 4/12/2023 - 10:33:54 AM
+ * @author Astyanax Pitelet
+ *
+ * @type {*}
+ */
 const login = catchAsync(async (req, res) => {
     try {
         const mailClient = req.body.mail.mail
@@ -78,33 +110,11 @@ const login = catchAsync(async (req, res) => {
             })
         }
     } catch(err) {
-        // sendError(res, err, "tesssss")
-    }
-})
-
-const getUser = catchAsync(async (res, mail) => {
-    try {
-        return await User.find({mail: mail})
-    } catch(err) {
-        sendError(res, err, "")
-    }
-})
-
-const getPasswords = catchAsync(async (res) => {
-    try {
-        await User.find({password})
-    } catch(err) {
-        sendError(res, err, "")
+        
     }
 })
 
 
-const sendError = (async (res, err, message) => {
-    res.json({
-        error: catchError(err),
-        message: message
-    })
-})
 
 module.exports = {
     register,

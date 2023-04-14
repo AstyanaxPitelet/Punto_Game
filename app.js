@@ -14,7 +14,6 @@ app.use(express.json())
 
 // Server socket io
 const server = http.createServer(app)
-
 const io = new Server(server, {
     cors: {
         origin: "http://localhost:3000",
@@ -22,6 +21,18 @@ const io = new Server(server, {
     }
 })
 
+
+/**
+ * Description placeholder
+ * 
+ * Méthode qui permet le trie des cartes aléatoirement
+ * 
+ * @date 4/12/2023 - 10:35:29 AM
+ * @author Astyanax Pitelet
+ *
+ * @param {*} array
+ * @returns {*}
+ */
 const shuffle = (array) => {
     let currentIndex = array.length,  randomIndex;
     while (currentIndex != 0) {
@@ -33,6 +44,8 @@ const shuffle = (array) => {
     return array;
   }
 
+
+// Gestion des sockets
 io.on('connection', (socket) => {
     console.log(`User connected: ${socket.id}`)
 
@@ -69,13 +82,7 @@ io.on('connection', (socket) => {
         io.to(infos.room).emit('start-game-players-info', infos.players)
     })
 
-    // socket.on('update-player', (player) => {
-    //     socket.to(player.room).emit('update-player-info', player)
-    // })
-
-   
     socket.on('update-game', (info) => {
-        console.log("update game")
         socket.to(info.room).emit('update-info', info)
     })
 

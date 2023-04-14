@@ -4,7 +4,6 @@ import Home from './pages/Home';
 import Punto from './pages/Punto';
 import Login from './components/connexion/Login';
 import Register from './components/connexion/SignUp';
-import Test from './pages/Test';
 import { RequireAuth } from 'react-auth-kit';
 import Room from './pages/Room';
 import Lobby from './pages/Lobby';
@@ -34,7 +33,6 @@ function App() {
               <Punto />
             </RequireAuth>
           }/>
-          <Route path="/test" element={<Test />} />
         </Routes>
       </>
     );
